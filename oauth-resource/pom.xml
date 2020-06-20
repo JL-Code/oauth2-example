@@ -19,6 +19,7 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>oauth-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
