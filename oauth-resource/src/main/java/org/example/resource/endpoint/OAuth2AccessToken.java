@@ -15,7 +15,8 @@ import java.io.Serializable;
  * @version v1.0
  */
 @Data
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class) // 必须添加对下划线属性的转换支持 不然通过restTemplate.postForEntity
+// 时会报转换异常 解决方案参考：https://www.codenong.com/10519265/
 public class OAuth2AccessToken implements Serializable {
 //    @JsonProperty("access_token")
     private String accessToken;
