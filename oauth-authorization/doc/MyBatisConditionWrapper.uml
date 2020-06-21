@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.baomidou.mybatisplus.core.conditions.Wrapper</OriginalElement>
+  <nodes>
+    <node x="228.89999999999998" y="0.0">java.lang.FunctionalInterface</node>
+    <node x="528.0" y="2024.0">com.baomidou.mybatisplus.core.conditions.query.QueryWrapper</node>
+    <node x="282.625" y="662.0">com.baomidou.mybatisplus.core.conditions.AbstractWrapper</node>
+    <node x="246.49999999999997" y="224.0">com.baomidou.mybatisplus.core.conditions.Wrapper</node>
+    <node x="318.0" y="116.0">com.baomidou.mybatisplus.core.conditions.ISqlSegment</node>
+    <node x="0.0" y="2035.0">com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper</node>
+    <node x="503.25" y="0.0">java.io.Serializable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.baomidou.mybatisplus.core.conditions.ISqlSegment" target="java.io.Serializable">
+      <point x="49.75" y="-29.0" />
+      <point x="467.25" y="96.0" />
+      <point x="564.75" y="96.0" />
+      <point x="-20.5" y="28.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.query.QueryWrapper" target="com.baomidou.mybatisplus.core.conditions.AbstractWrapper">
+      <point x="-114.25" y="-84.0" />
+      <point x="642.25" y="1999.0" />
+      <point x="626.125" y="1999.0" />
+      <point x="114.5" y="656.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.Wrapper" target="com.baomidou.mybatisplus.core.conditions.ISqlSegment">
+      <point x="0.0" y="-194.0" />
+      <point x="0.0" y="29.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.AbstractWrapper" target="java.io.Serializable">
+      <point x="114.5" y="-656.0" />
+      <point x="626.125" y="637.0" />
+      <point x="605.75" y="637.0" />
+      <point x="20.5" y="28.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.ISqlSegment" target="java.lang.FunctionalInterface">
+      <point x="-49.75" y="-29.0" />
+      <point x="367.75" y="76.0" />
+      <point x="344.4" y="76.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.query.QueryWrapper" target="java.io.Serializable">
+      <point x="114.25" y="-84.0" />
+      <point x="870.75" y="1999.0" />
+      <point x="836.9416666666666" y="1999.0" />
+      <point x="836.9416666666666" y="96.0" />
+      <point x="646.75" y="96.0" />
+      <point x="61.5" y="28.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper" target="com.baomidou.mybatisplus.core.conditions.AbstractWrapper">
+      <point x="127.0" y="-73.0" />
+      <point x="381.0" y="1999.0" />
+      <point x="397.125" y="1999.0" />
+      <point x="-114.5" y="656.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper" target="java.io.Serializable">
+      <point x="-127.0" y="-73.0" />
+      <point x="127.0" y="1999.0" />
+      <point x="204.94166666666666" y="1999.0" />
+      <point x="204.94166666666666" y="86.0" />
+      <point x="523.75" y="86.0" />
+      <point x="-61.5" y="28.0" />
+    </edge>
+    <edge source="com.baomidou.mybatisplus.core.conditions.AbstractWrapper" target="com.baomidou.mybatisplus.core.conditions.Wrapper">
+      <point x="-114.5" y="-656.0" />
+      <point x="397.125" y="637.0" />
+      <point x="417.5" y="637.0" />
+      <point x="0.0" y="194.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="455.0" y="1818.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

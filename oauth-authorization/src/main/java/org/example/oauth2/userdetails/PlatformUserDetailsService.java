@@ -1,5 +1,7 @@
 package org.example.oauth2.userdetails;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.example.oauth2.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @author <a href="mailto:jiangy@highzap.com" rel="nofollow">蒋勇</a>
  * @version v1.0
  */
-public interface PlatformUserDetailsService extends UserDetailsService {
+public interface PlatformUserDetailsService extends UserDetailsService, IService<User> {
 
 }
