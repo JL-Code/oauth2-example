@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.example.common.autoconfigure.endpoint.EndpointAutoConfiguration,\
+org.example.common.autoconfigure.resourceserver.ResourceServerAutoConfiguration

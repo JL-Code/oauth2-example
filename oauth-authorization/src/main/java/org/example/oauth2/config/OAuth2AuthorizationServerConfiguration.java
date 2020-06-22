@@ -55,7 +55,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
                 .tokenStore(new RedisTokenStore(redisConnectionFactory)) // 设置 Redis 令牌存储服务
                 .userDetailsService(platformUserDetailsService) // 用户服务
                 .authenticationManager(authenticationManager) // 手动注入 authenticationManager 用于开启密码授权
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+                .allowedTokenEndpointRequestMethods(HttpMethod.POST);
     }
 
     @Override

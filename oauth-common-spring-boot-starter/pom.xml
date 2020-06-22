@@ -9,13 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>oauth-common</artifactId>
+    <artifactId>oauth-common-spring-boot-starter</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <groupId>org.example</groupId>
+            <artifactId>oauth-common-spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 
@@ -31,5 +30,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

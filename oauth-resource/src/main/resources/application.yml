@@ -1,2 +1,9 @@
 server:
   port: 8081
+oauth2-resource:
+  enabled: true
+  client-id: cdb
+  client-secret: cdb
+  token-endpoint: http://localhost:8080/oauth/token
+  check-token-endpoint: http://localhost:8080/oauth/check-token
+logging.level.org.springframework.web.client: debug

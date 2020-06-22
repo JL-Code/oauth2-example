@@ -20,7 +20,15 @@
         <module>oauth-authorization</module>
         <module>oauth-resource</module>
         <module>oauth-common</module>
+        <module>oauth-common-spring-boot-starter</module>
+        <module>oauth-common-spring-boot-autoconfigure</module>
     </modules>
+
+    <properties>
+        <oauth-common.version>0.0.1-SNAPSHOT</oauth-common.version>
+        <oauth-common-spring-boot-starter.version>0.0.1-SNAPSHOT</oauth-common-spring-boot-starter.version>
+        <oauth-common-spring-boot-autoconfigure.version>0.0.1-SNAPSHOT</oauth-common-spring-boot-autoconfigure.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -72,6 +80,21 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>oauth-common</artifactId>
+                <version>${oauth-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>oauth-common-spring-boot-autoconfigure</artifactId>
+                <version>${oauth-common-spring-boot-autoconfigure.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>oauth-common-spring-boot-starter</artifactId>
+                <version>${oauth-common-spring-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
