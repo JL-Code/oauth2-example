@@ -1,0 +1,16 @@
+@startuml
+Client -> "Adapter:ITarget": target.request()
+activate Client
+activate "Adapter:ITarget"
+
+"Adapter:ITarget" -> Adaptee: adaptee.specificRequest()
+activate Adaptee
+
+Adaptee --> "Adapter:ITarget"
+destroy Adaptee
+
+"Adapter:ITarget" --> Client
+destroy "Adapter:ITarget"
+deactivate Client
+
+@enduml

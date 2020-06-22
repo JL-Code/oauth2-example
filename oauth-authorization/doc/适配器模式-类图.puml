@@ -1,0 +1,22 @@
+@startuml
+
+class Adaptee {
+    + void specificRequest();
+}
+class Client {
+    - ITarget target;
+}
+
+interface ITarget{
+    + void request();
+}
+
+class Adapter implements ITarget{
+    - Adaptee adaptee;
+    + void request();
+}
+
+Client --> ITarget:关联
+Adapter --> Adaptee:关联
+
+@enduml
