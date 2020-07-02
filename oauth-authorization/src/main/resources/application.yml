@@ -1,10 +1,11 @@
 spring:
   redis:
-    database: 0
+    database: 1
     host: 127.0.0.1
   datasource:
-    url: jdbc:mysql://demo.highzap.com:5636/org
-    username: dev
-    password: Cqhz2020
+    url: jdbc:mysql://localhost:3306/org
+    username: root
+    password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
 logging.level.org.springframework.security: debug
+logging.level.org.springframework.security.oauth2: debug

@@ -5,5 +5,4 @@ oauth2-resource:
   client-id: cdb
   client-secret: cdb
   token-endpoint: http://localhost:8080/oauth/token
-  check-token-endpoint: http://localhost:8080/oauth/check_token
-logging.level.org.springframework.web.client: debug
+  check-token-endpoint: http://localhost:8080/oauth/check-token

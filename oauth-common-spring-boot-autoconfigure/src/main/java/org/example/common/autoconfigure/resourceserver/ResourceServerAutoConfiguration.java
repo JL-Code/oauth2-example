@@ -1,5 +1,6 @@
 package org.example.common.autoconfigure.resourceserver;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.common.autoconfigure.endpoint.OAuth2ResourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -27,6 +28,7 @@ import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 @ConditionalOnProperty(prefix = "oauth2-resource", name = "enabled", havingValue = "true", matchIfMissing = false)
 @ConditionalOnWebApplication
 @EnableResourceServer
+@Slf4j
 public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAdapter {
 
     private RemoteTokenServices remoteTokenServices;
@@ -36,6 +38,8 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
         remoteTokenServices.setCheckTokenEndpointUrl(properties.getCheckTokenEndpoint());
         remoteTokenServices.setClientId(properties.getClientId());
         remoteTokenServices.setClientSecret(properties.getClientSecret());
+        log.info("资源服务器配置初始中: checkToken:{} clientId:{} clientSecret:{}",
+                properties.getCheckTokenEndpoint(), properties.getClientId(), properties.getClientSecret());
     }
 
 

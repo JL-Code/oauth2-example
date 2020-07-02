@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import java.util.ArrayList;
+
 /**
  * <p>描述: [类型描述] </p>
  * <p>创建时间: 2020/6/18 </p>
@@ -43,10 +45,20 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
          * 如果需要自定义客户端信息服务，实现 {@link ClientDetailsService} 即可。
          **/
         // 配置客户端信息
-        clients.inMemory()
-                .withClient("cdb")
-                .secret("cdb")
-                .authorizedGrantTypes("password", "client_credentials","refresh_token", "authorization_code");
+        ArrayList<String> clientCodes = new ArrayList<>();
+        clientCodes.add("org");
+        clientCodes.add("cdb");
+        clientCodes.stream().forEach(code -> {
+            try {
+                clients.inMemory()
+                        .withClient(code)
+                        .secret(code)
+                        .authorizedGrantTypes("password", "client_credentials", "refresh_token", "authorization_code");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     @Override

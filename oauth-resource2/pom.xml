@@ -9,12 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>oauth-resource</artifactId>
+    <artifactId>oauth-resource2</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>oauth-common-spring-boot-starter</artifactId>
-        </dependency>
     </dependencies>
 </project>

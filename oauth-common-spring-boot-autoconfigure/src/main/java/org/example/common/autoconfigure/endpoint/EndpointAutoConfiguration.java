@@ -1,5 +1,6 @@
 package org.example.common.autoconfigure.endpoint;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,5 +14,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("org.example.common.endpoint")
+@Slf4j
 public class EndpointAutoConfiguration {
+    public EndpointAutoConfiguration() {
+        log.info("暴露令牌端点");
+    }
 }

@@ -1,0 +1,9 @@
+@startuml
+interface AuthenticationManager {
+    Authentication authenticate(Authentication authentication);
+}
+
+class OAuth2AuthenticationManager implements AuthenticationManager{
+    Authentication authenticate(Authentication authentication);
+}
+@enduml
