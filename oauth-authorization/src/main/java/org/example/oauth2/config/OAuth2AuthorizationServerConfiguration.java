@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -48,10 +49,11 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
         ArrayList<String> clientCodes = new ArrayList<>();
         clientCodes.add("org");
         clientCodes.add("cdb");
+        InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         clientCodes.stream().forEach(code -> {
             try {
-                clients.inMemory()
-                        .withClient(code)
+
+                builder.withClient(code)
                         .secret(code)
                         .authorizedGrantTypes("password", "client_credentials", "refresh_token", "authorization_code");
             } catch (Exception e) {
