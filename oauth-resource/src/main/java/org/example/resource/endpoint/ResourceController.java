@@ -1,7 +1,10 @@
 package org.example.resource.endpoint;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.security.Principal;
 
 /**
@@ -18,4 +21,16 @@ public class ResourceController {
     public String getResource(@PathVariable String id, Principal principal) {
         return "name:" + principal.getName() + "id:" + id;
     }
+
+    @GetMapping("/resource/detail/{id}")
+    public Resource getResourceDetail(@PathVariable String id, Principal principal) {
+        return new Resource(id, principal.getName());
+    }
+}
+
+@Data
+@AllArgsConstructor
+class Resource implements Serializable {
+    private String id;
+    private String name;
 }

@@ -2,6 +2,7 @@ package org.example.resource2.service;
 
 import feign.Param;
 import feign.RequestLine;
+import org.example.resource2.Resource;
 
 /**
  * <p>描述: [类型描述] </p>
@@ -13,4 +14,8 @@ import feign.RequestLine;
 public interface ResourceService {
     @RequestLine("GET /resource/info/{id}")
     public String getResource(@Param("id") String id);
+
+    // /resource/detail/{id}
+    @RequestLine("GET /resource/detail/{id}")
+    public Resource getResourceDetail(@Param("id") String id);
 }
