@@ -16,6 +16,7 @@
     </properties>
 
     <dependencies>
+        <!--    非 starter     -->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>

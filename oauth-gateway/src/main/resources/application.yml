@@ -1,0 +1,29 @@
+server:
+  port: 9000
+  cloud:
+    gateway:
+      routes:
+        # 路由 ID
+        - id: route
+          # uri: 中 lb 是引用服务注册中心数据。 eg: 动态路由 lb://service_name
+          #uri: lb://springcloud-nacos-producer
+          uri: http://news.baidu.com
+          # JDK 1.8 中的 predicate function
+          predicates:
+            - Path=/mil
+        - id: order
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/consumer/**
+        - id: payment
+          uri: http://127.0.0.1:8001
+          predicates:
+            - Path=/payment/**
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

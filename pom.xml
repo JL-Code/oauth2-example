@@ -23,6 +23,7 @@
         <module>oauth-common-spring-boot-starter</module>
         <module>oauth-common-spring-boot-autoconfigure</module>
         <module>oauth-resource2</module>
+        <module>oauth-gateway</module>
     </modules>
 
     <properties>
