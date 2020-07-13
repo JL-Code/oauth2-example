@@ -36,12 +36,12 @@
       <point x="-73.75" y="29.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.9688230709275136" x="1238.5" y="20.0" />
+  <settings layout="Hierarchic Group" zoom="0.46686119216340144" x="1189.5" y="173.5" />
   <SelectedNodes />
   <Categories>
-    <Category>Properties</Category>
-    <Category>Methods</Category>
     <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

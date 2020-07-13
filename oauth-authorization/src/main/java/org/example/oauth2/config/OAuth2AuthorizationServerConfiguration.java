@@ -51,6 +51,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
         ArrayList<String> clientCodes = new ArrayList<>();
         clientCodes.add("org");
         clientCodes.add("cdb");
+        clientCodes.add("gateway");
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         clientCodes.stream().forEach(code -> {

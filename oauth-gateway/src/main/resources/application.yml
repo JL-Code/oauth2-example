@@ -1,5 +1,23 @@
 server:
   port: 9000
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:8080/oauth/check_token
+          client-id: gateway
+          client-secret: gateway
   cloud:
     gateway:
       routes:
@@ -19,6 +37,10 @@ server:
           uri: http://127.0.0.1:8001
           predicates:
             - Path=/payment/**
+        - id: gateway-test
+          uri: http://127.0.0.1:9001
+          predicates:
+            - Path=/gateway/**
 #    nacos:
 #      discovery:
 #        server-addr: localhost:8848
