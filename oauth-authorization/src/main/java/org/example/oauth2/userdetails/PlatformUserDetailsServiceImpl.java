@@ -3,11 +3,17 @@ package org.example.oauth2.userdetails;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.model.PlatformUserDetails;
+import org.example.common.model.ResourceAuthority;
 import org.example.oauth2.dao.UserDao;
 import org.example.oauth2.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>描述: [类型描述] </p>
@@ -32,7 +38,23 @@ public class PlatformUserDetailsServiceImpl extends ServiceImpl<UserDao, User> i
             throw new UsernameNotFoundException("不存在用户名为：" + username + "的用户");
         }
         userDetails.setUsername(username);
+        userDetails.setCompanyName("天空行者");
+        userDetails.setDepartmentName("动力研究部");
         userDetails.setPassword(user.getPassword());
+
+        HashMap<String, String> authorities2 = new HashMap<>();
+        authorities2.put("/api/oom/sys-user", "GET");
+        authorities2.put("/api/oom/sys-user", "PUT");
+        authorities2.put("/api/oom/sys-user/{id}", "DELETE");
+
+        List<ResourceAuthority> authorities = new ArrayList<>();
+        authorities.add(new ResourceAuthority("/api/oom/sys-user", "GET", "query_user"));
+        authorities.add(new ResourceAuthority("/api/oom/sys-user", "PUT", "update_user"));
+        authorities.add(new ResourceAuthority("/api/oom/sys-user/{id}", "DELETE", "delete_user"));
+
+        userDetails.setAuthorities2(authorities2);
+        userDetails.setAuthorities(authorities);
+
         return userDetails;
     }
 }

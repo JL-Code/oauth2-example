@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -12,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.util.ArrayList;
@@ -50,11 +52,11 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
         clientCodes.add("org");
         clientCodes.add("cdb");
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         clientCodes.stream().forEach(code -> {
             try {
-
                 builder.withClient(code)
-                        .secret(code)
+                        .secret(passwordEncoder.encode(code))
                         .authorizedGrantTypes("password", "client_credentials", "refresh_token", "authorization_code");
             } catch (Exception e) {
                 e.printStackTrace();

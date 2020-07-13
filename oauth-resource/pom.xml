@@ -16,5 +16,9 @@
             <groupId>org.example</groupId>
             <artifactId>oauth-common-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oauth-common</artifactId>
+        </dependency>
     </dependencies>
 </project>

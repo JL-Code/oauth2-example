@@ -2,7 +2,10 @@ package org.example.resource.endpoint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -18,7 +21,7 @@ import java.security.Principal;
 public class ResourceController {
 
     @GetMapping("/resource/info/{id}")
-    public String getResource(@PathVariable String id, Principal principal) {
+    public String getResource(@PathVariable String id, Authentication principal) {
         return "name:" + principal.getName() + "id:" + id;
     }
 
