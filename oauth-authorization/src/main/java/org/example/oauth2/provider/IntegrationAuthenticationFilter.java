@@ -64,7 +64,7 @@ public class IntegrationAuthenticationFilter extends GenericFilterBean implement
                 filterChain.doFilter(request, response);
 
                 //后置处理
-                this.complete(integrationAuthentication);
+//                this.complete(integrationAuthentication);
             } finally {
                 IntegrationAuthenticationContext.clear();
             }

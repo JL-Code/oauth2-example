@@ -25,9 +25,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private final String clientId = "uaa";
     private final String clientSecret = "uaa";
 
+    @Autowired
+    private DefaultTokenServices defaultTokenServices;
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-
+        resources.tokenServices(defaultTokenServices);
     }
 
     @Override
