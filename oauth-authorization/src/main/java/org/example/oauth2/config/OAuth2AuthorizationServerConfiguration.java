@@ -2,6 +2,7 @@ package org.example.oauth2.config;
 
 import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.example.oauth2.userdetails.PlatformUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
@@ -34,6 +35,10 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     private RedisConnectionFactory redisConnectionFactory;
     private PlatformUserDetailsService platformUserDetailsService;
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private IntegrationAuthenticationFilter integrationAuthenticationFilter;
+
 
     public OAuth2AuthorizationServerConfiguration(RedisConnectionFactory redisConnectionFactory,
                                                   PlatformUserDetailsService platformUserDetailsService,
@@ -80,6 +85,6 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients()
-                .addTokenEndpointAuthenticationFilter(new IntegrationAuthenticationFilter());
+                .addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter);
     }
 }

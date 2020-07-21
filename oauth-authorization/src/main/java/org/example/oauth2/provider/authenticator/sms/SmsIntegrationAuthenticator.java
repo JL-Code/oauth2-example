@@ -6,11 +6,13 @@ import org.example.oauth2.provider.IntegrationAuthentication;
 import org.example.oauth2.provider.authenticator.AbstractPreparableIntegrationAuthenticator;
 import org.example.oauth2.provider.authenticator.sms.event.SmsAuthenticateBeforeEvent;
 import org.example.oauth2.provider.authenticator.sms.event.SmsAuthenticateSuccessEvent;
+import org.example.oauth2.provider.service.CaptchaService;
 import org.example.oauth2.provider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,9 +27,8 @@ public class SmsIntegrationAuthenticator extends AbstractPreparableIntegrationAu
     // TODO: 用户 Provider 、验证码 Provider
     @Autowired
     private UserService userService;
-//
-//    @Autowired
-//    private VerificationCodeClient verificationCodeClient;
+    @Autowired
+    private CaptchaService captchaService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -58,15 +59,18 @@ public class SmsIntegrationAuthenticator extends AbstractPreparableIntegrationAu
 
     @Override
     public void prepare(IntegrationAuthentication integrationAuthentication) {
+        // 这里是短信验证码 Token
         String smsToken = integrationAuthentication.getAuthParameter("sms_token");
+        // 这里是短信验证码
         String smsCode = integrationAuthentication.getAuthParameter("password");
+        // 这里是手机号码
         String username = integrationAuthentication.getAuthParameter("username");
 
         // TODO: 验证码校验
-//        Result<Boolean> result = verificationCodeClient.validate(smsToken, smsCode, username);
-//        if (!result.getData()) {
-//            throw new OAuth2Exception("验证码错误或已过期");
-//        }
+        boolean result = this.captchaService.validate(smsToken, smsCode, username);
+        if (!result) {
+            throw new OAuth2Exception("验证码错误或已过期");
+        }
     }
 
     @Override

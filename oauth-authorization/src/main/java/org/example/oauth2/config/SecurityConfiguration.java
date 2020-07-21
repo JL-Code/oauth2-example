@@ -1,5 +1,7 @@
 package org.example.oauth2.config;
 
+import org.example.oauth2.provider.IntegrationAuthenticationFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +27,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public IntegrationAuthenticationFilter integrationAuthenticationFilter(){
+        return new IntegrationAuthenticationFilter();
+    }
+
+    /**
+     * https://segmentfault.com/a/1190000014371789#comment-area
+     * 取消 IntegrationAuthenticationFilter 的自动注册
+     * @param integrationAuthenticationFilter
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean registration(IntegrationAuthenticationFilter integrationAuthenticationFilter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean(integrationAuthenticationFilter);
+        registration.setEnabled(false);
+        return registration;
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -37,7 +57,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .csrf()
                 .disable()
