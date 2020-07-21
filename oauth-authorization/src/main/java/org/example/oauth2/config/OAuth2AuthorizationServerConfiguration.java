@@ -1,5 +1,6 @@
 package org.example.oauth2.config;
 
+import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.example.oauth2.userdetails.PlatformUserDetailsService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -78,6 +79,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients();
+                .allowFormAuthenticationForClients()
+                .addTokenEndpointAuthenticationFilter(new IntegrationAuthenticationFilter());
     }
 }

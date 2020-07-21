@@ -1,8 +1,13 @@
 package org.example.oauth2.provider.authenticator;
 
+
 import org.example.oauth2.entity.User;
 import org.example.oauth2.provider.IntegrationAuthentication;
 
+/**
+ * @author LIQIU
+ * @date 2018-3-31
+ **/
 public interface IntegrationAuthenticator {
 
     /**
