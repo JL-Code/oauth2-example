@@ -19,4 +19,5 @@ public class User {
     private String userCode;
     private String password;
     private String name;
+    private String phoneNumber;
 }
