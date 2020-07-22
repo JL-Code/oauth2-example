@@ -1,5 +1,6 @@
 package org.example.oauth2.config;
 
+import org.example.common.model.PlatformUserDetails;
 import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.example.oauth2.provider.IntegrationUserDetailsService;
 import org.example.oauth2.userdetails.PlatformUserDetailsService;
@@ -34,7 +35,10 @@ import java.util.ArrayList;
 public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private RedisConnectionFactory redisConnectionFactory;
+    @Autowired
     private IntegrationUserDetailsService userDetailsService;
+    @Autowired
+    private PlatformUserDetailsService platformUserDetailsService;
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -42,10 +46,8 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
 
 
     public OAuth2AuthorizationServerConfiguration(RedisConnectionFactory redisConnectionFactory,
-                                                  IntegrationUserDetailsService userDetailsService,
                                                   AuthenticationManager authenticationManager) {
         this.redisConnectionFactory = redisConnectionFactory;
-        this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
 
@@ -65,7 +67,6 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
             try {
                 builder.withClient(code)
                         .secret(passwordEncoder.encode(code))
-                        .redirectUris("http://www.baidu.com")
                         .authorizedGrantTypes("password", "client_credentials", "refresh_token", "authorization_code");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -78,7 +79,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .tokenStore(new RedisTokenStore(redisConnectionFactory)) // 设置 Redis 令牌存储服务
-                .userDetailsService(userDetailsService) // 用户服务
+                .userDetailsService(platformUserDetailsService) // 用户服务
                 .authenticationManager(authenticationManager) // 手动注入 authenticationManager 用于开启密码授权
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST);
     }
@@ -86,8 +87,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("permitAll()")
-                .tokenKeyAccess("permitAll()")
-                .allowFormAuthenticationForClients()
-                .addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter);
+                .allowFormAuthenticationForClients();
+//                .addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter);
     }
 }

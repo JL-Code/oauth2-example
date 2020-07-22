@@ -3,7 +3,6 @@ package org.example.oauth2.config;
 import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,13 +27,19 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
+//    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
+
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
     @Bean
-    public IntegrationAuthenticationFilter integrationAuthenticationFilter(){
+    public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
         return new IntegrationAuthenticationFilter();
     }
 
@@ -54,6 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * https://segmentfault.com/a/1190000014371789#comment-area
      * 取消 IntegrationAuthenticationFilter 的自动注册
+     *
      * @param integrationAuthenticationFilter
      * @return
      */
