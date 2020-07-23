@@ -60,11 +60,12 @@ public class IntegrationAuthenticationFilter extends GenericFilterBean implement
             try {
                 //预处理 找到合适的认证器预认证
                 this.prepare(integrationAuthentication);
+                Map<String, String[]> parameterMap = request.getParameterMap();
 
                 filterChain.doFilter(request, response);
 
                 //后置处理
-//                this.complete(integrationAuthentication);
+                this.complete(integrationAuthentication);
             } finally {
                 IntegrationAuthenticationContext.clear();
             }

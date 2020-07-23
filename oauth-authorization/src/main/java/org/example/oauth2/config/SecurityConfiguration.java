@@ -3,6 +3,7 @@ package org.example.oauth2.config;
 import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,10 +28,9 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     @Bean

@@ -19,5 +19,6 @@ public class User {
     private String userCode;
     private String password;
     private String name;
+    @TableField("mobile_phone")
     private String phoneNumber;
 }
