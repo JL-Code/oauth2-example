@@ -66,6 +66,10 @@ public class CaptchaServiceImpl implements CaptchaService {
         }
         // TODO: 验证码校验逻辑
         String smsCode = stringRedisTemplate.opsForValue().get(token);
+        if (smsCode == null) {
+            smsCode = "";
+            System.out.println("smsCode is null");
+        }
 
         return ignoreCase ? smsCode.equalsIgnoreCase(code) : smsCode.equals(code);
     }

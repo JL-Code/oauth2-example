@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.oauth2.provider.token.ResourceServerTokenServices</OriginalElement>
+  <nodes>
+    <node x="402.0" y="0.0">org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices</node>
+    <node x="275.25" y="322.0">org.springframework.security.oauth2.provider.token.store</node>
+    <node x="816.0" y="0.0">org.springframework.security.oauth2.provider.token.ConsumerTokenServices</node>
+    <node x="0.0" y="109.0">org.springframework.security.oauth2.provider.token.RemoteTokenServices</node>
+    <node x="0.0" y="322.0">org.springframework.security.oauth2.provider.token.TokenEnhancerChain</node>
+    <node x="42.0" y="0.0">org.springframework.security.oauth2.provider.token.ResourceServerTokenServices</node>
+    <node x="0.0" y="639.0">org.springframework.security.oauth2.provider.token.AbstractTokenGranter</node>
+    <node x="461.0" y="535.0">org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator</node>
+    <node x="460.25000000000006" y="213.0">org.springframework.security.oauth2.provider.token.AccessTokenConverter</node>
+    <node x="489.0" y="322.0">org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter</node>
+    <node x="74.25000000000006" y="213.0">org.springframework.security.oauth2.provider.token.TokenEnhancer</node>
+    <node x="466.5" y="109.0">org.springframework.security.oauth2.provider.token.DefaultTokenServices</node>
+    <node x="0.0" y="535.0">org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter</node>
+    <node x="499.0" y="426.0">org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator</node>
+    <node x="38.0" y="426.0">org.springframework.security.oauth2.provider.token.UserAuthenticationConverter</node>
+    <node x="283.25000000000006" y="213.0">org.springframework.security.oauth2.provider.token.TokenStore</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.oauth2.provider.token.DefaultTokenServices" target="org.springframework.security.oauth2.provider.token.ConsumerTokenServices">
+      <point x="88.33333333333337" y="-29.5" />
+      <point x="687.3333333333334" y="84.0" />
+      <point x="953.5" y="84.0" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.store" target="org.springframework.security.oauth2.provider.token.AccessTokenConverter">
+      <point x="57.666666666666686" y="-29.5" />
+      <point x="419.4166666666667" y="297.0" />
+      <point x="526.5" y="297.0" />
+      <point x="-66.25" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter" target="org.springframework.security.oauth2.provider.token.UserAuthenticationConverter">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.store" target="org.springframework.security.oauth2.provider.token.TokenEnhancer">
+      <point x="-57.66666666666657" y="-29.5" />
+      <point x="304.0833333333334" y="297.0" />
+      <point x="216.00000000000006" y="297.0" />
+      <point x="47.25" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter" target="org.springframework.security.oauth2.provider.token.AccessTokenConverter">
+      <point x="0.0" y="-29.5" />
+      <point x="66.25" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.RemoteTokenServices" target="org.springframework.security.oauth2.provider.token.ResourceServerTokenServices">
+      <point x="0.0" y="-29.5" />
+      <point x="-85.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.store" target="org.springframework.security.oauth2.provider.token.TokenStore">
+      <point x="5.6843418860808015E-14" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator" target="org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.DefaultTokenServices" target="org.springframework.security.oauth2.provider.token.ResourceServerTokenServices">
+      <point x="-88.33333333333331" y="-29.5" />
+      <point x="510.6666666666667" y="84.0" />
+      <point x="297.0" y="84.0" />
+      <point x="85.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.DefaultTokenServices" target="org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.TokenEnhancerChain" target="org.springframework.security.oauth2.provider.token.TokenEnhancer">
+      <point x="0.0" y="-29.5" />
+      <point x="-47.25" y="29.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="545.5" y="349.0" />
+  <SelectedNodes>
+    <node>org.springframework.security.oauth2.provider.token.ResourceServerTokenServices</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

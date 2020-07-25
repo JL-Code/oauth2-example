@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.oauth2.provider.token.AbstractTokenGranter</OriginalElement>
+  <nodes>
+    <node x="0.0" y="644.0">org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices</node>
+    <node x="535.25" y="109.0">org.springframework.security.oauth2.provider.CompositeTokenGranter</node>
+    <node x="536.0" y="322.0">org.springframework.security.authentication.AuthenticationManager</node>
+    <node x="102.5" y="322.0">org.springframework.security.authentication.AuthenticationProvider</node>
+    <node x="568.0" y="431.0">org.springframework.security.authentication.ProviderManager</node>
+    <node x="438.75" y="0.0">org.springframework.security.oauth2.provider.TokenGranter</node>
+    <node x="310.0" y="748.0">org.springframework.security.oauth2.provider.endpoint.TokenEndpoint</node>
+    <node x="0.0" y="748.0">org.springframework.security.oauth2.provider.ClientDetailsService</node>
+    <node x="0.0" y="431.0">org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider</node>
+    <node x="86.0" y="540.0">org.springframework.security.authentication.dao.DaoAuthenticationProvider</node>
+    <node x="250.25" y="109.0">org.springframework.security.oauth2.provider.token.AbstractTokenGranter</node>
+    <node x="439.0" y="644.0">org.springframework.security.oauth2.provider.code.AuthorizationCodeServices</node>
+    <node x="0.0" y="218.0">org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter</node>
+    <node x="382.0" y="218.0">org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.oauth2.provider.CompositeTokenGranter" target="org.springframework.security.oauth2.provider.TokenGranter">
+      <point x="0.0" y="-29.5" />
+      <point x="672.75" y="84.0" />
+      <point x="572.25" y="84.0" />
+      <point x="44.5" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter" target="org.springframework.security.oauth2.provider.token.AbstractTokenGranter">
+      <point x="0.0" y="-29.5" />
+      <point x="181.0" y="193.0" />
+      <point x="316.5" y="193.0" />
+      <point x="-66.25" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter" target="org.springframework.security.oauth2.provider.token.AbstractTokenGranter">
+      <point x="0.0" y="-29.5" />
+      <point x="584.5" y="193.0" />
+      <point x="449.0" y="193.0" />
+      <point x="66.25" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.authentication.ProviderManager" target="org.springframework.security.authentication.AuthenticationManager">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.provider.token.AbstractTokenGranter" target="org.springframework.security.oauth2.provider.TokenGranter">
+      <point x="0.0" y="-29.5" />
+      <point x="382.75" y="84.0" />
+      <point x="483.25" y="84.0" />
+      <point x="-44.5" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.authentication.dao.DaoAuthenticationProvider" target="org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider" target="org.springframework.security.authentication.AuthenticationProvider">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="416.0" y="433.0" />
+  <SelectedNodes>
+    <node>org.springframework.security.oauth2.provider.code.AuthorizationCodeServices</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

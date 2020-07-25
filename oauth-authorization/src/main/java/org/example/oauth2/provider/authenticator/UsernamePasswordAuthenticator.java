@@ -7,12 +7,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-/**
- * 默认登录处理
- *
- * @author LIQIU
- * @date 2018-3-31
- **/
 @Component
 @Primary
 public class UsernamePasswordAuthenticator extends AbstractPreparableIntegrationAuthenticator {

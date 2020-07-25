@@ -29,7 +29,6 @@ public class SmsIntegrationAuthenticator extends AbstractPreparableIntegrationAu
     private UserService userService;
     @Autowired
     private CaptchaService captchaService;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 

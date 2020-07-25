@@ -25,6 +25,7 @@
         <module>oauth-resource2</module>
         <module>oauth-gateway</module>
         <module>oauth-gateway-test</module>
+        <module>oauth-authorization-config</module>
     </modules>
 
     <properties>

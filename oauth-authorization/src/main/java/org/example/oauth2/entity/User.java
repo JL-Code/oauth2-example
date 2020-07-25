@@ -21,4 +21,8 @@ public class User {
     private String name;
     @TableField("mobile_phone")
     private String phoneNumber;
+    @TableField("wechat_account")
+    private String corpWxUserId;
+    @TableField("ding_talk_account")
+    private String dingtalkUserId;
 }

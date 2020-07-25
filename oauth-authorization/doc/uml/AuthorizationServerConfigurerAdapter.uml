@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer</OriginalElement>
+  <nodes>
+    <node x="37.5" y="0.0">org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer</node>
+    <node x="0.0" y="213.0">org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer</node>
+    <node x="0.0" y="109.0">org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter</node>
+    <node x="0.0" y="317.0">org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer</node>
+    <node x="0.0" y="421.0">org.springframework.security.oauth2.provider.ClientDetailsService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter" target="org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer">
+      <point x="0.0" y="-29.5" />
+      <point x="0.0" y="29.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="229.5" y="240.0" />
+  <SelectedNodes>
+    <node>org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

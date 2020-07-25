@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.oauth2.config.annotation.web.configuration.OAuth2ClientConfiguration</OriginalElement>
+  <nodes>
+    <node x="20.0" y="293.0">org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter</node>
+    <node x="20.0" y="471.0">org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties</node>
+    <node x="479.1666666666666" y="144.0">org.springframework.security.oauth2.config.annotation.web.configuration.OAuth2ClientConfiguration</node>
+    <node x="425.99999999999994" y="0.0">org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter</node>
+    <node x="0.0" y="626.0">org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails</node>
+    <node x="20.0" y="0.0">org.springframework.security.oauth2.client.OAuth2RestTemplate</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="399.5" y="342.5" />
+  <SelectedNodes>
+    <node>org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

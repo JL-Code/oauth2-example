@@ -11,8 +11,14 @@ public class CaptchaEndpoint {
     @Autowired
     private CaptchaService captchaService;
 
+    /**
+     * 获取手机验证码
+     *
+     * @param subject 手机号码
+     * @return
+     */
     @GetMapping("/oauth/captcha")
-    public Object methodName(String phoneNumber) {
-        return captchaService.getToken(phoneNumber);
+    public Object getCaptcha(String subject) {
+        return captchaService.getToken(subject);
     }
 }

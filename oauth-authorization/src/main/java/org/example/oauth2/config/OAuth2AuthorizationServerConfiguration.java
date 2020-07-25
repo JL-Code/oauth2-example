@@ -1,9 +1,6 @@
 package org.example.oauth2.config;
 
-import org.example.common.model.PlatformUserDetails;
-import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.example.oauth2.provider.IntegrationUserDetailsService;
-import org.example.oauth2.userdetails.PlatformUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -17,7 +14,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.util.ArrayList;
@@ -40,8 +36,8 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     private IntegrationUserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private IntegrationAuthenticationFilter integrationAuthenticationFilter;
+//    @Autowired
+//    private CorpWechatAuthenticationFilter corpWechatAuthenticationFilter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -59,6 +55,9 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
             try {
                 builder.withClient(code)
                         .secret(passwordEncoder.encode(code))
+//                        .redirectUris("http://localhost:8081/cgi-bin/query")
+//                        .autoApprove(true)
+//                        .autoApprove("get_user_info")
                         .authorizedGrantTypes("password", "client_credentials", "refresh_token", "authorization_code");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -73,13 +72,13 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
                 .tokenStore(new RedisTokenStore(redisConnectionFactory)) // 设置 Redis 令牌存储服务
                 .userDetailsService(userDetailsService) // 用户服务
                 .authenticationManager(authenticationManager) // 手动注入 authenticationManager 用于开启密码授权
-                .allowedTokenEndpointRequestMethods(HttpMethod.POST);
+                .allowedTokenEndpointRequestMethods(HttpMethod.POST, HttpMethod.GET);
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients()
-                .addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter);
+                .allowFormAuthenticationForClients();
+//                .addTokenEndpointAuthenticationFilter(corpWechatAuthenticationFilter);
     }
 }

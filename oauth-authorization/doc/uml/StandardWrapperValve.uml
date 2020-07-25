@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.catalina.core.StandardWrapperValve</OriginalElement>
+  <nodes>
+    <node x="20.0" y="0.0">org.apache.catalina.core.ApplicationFilterChain</node>
+    <node x="326.0" y="0.0">org.apache.catalina.Lifecycle</node>
+    <node x="184.24999999999997" y="119.0">org.apache.catalina.core.StandardWrapperValve</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.catalina.core.StandardWrapperValve" target="org.apache.catalina.Lifecycle">
+      <point x="66.25" y="-29.5" />
+      <point x="383.0" y="99.0" />
+      <point x="399.0" y="99.0" />
+      <point x="0.0" y="29.5" />
+    </edge>
+    <edge source="org.apache.catalina.core.StandardWrapperValve" target="org.apache.catalina.core.ApplicationFilterChain">
+      <point x="-66.25" y="-29.5" />
+      <point x="250.49999999999997" y="99.0" />
+      <point x="234.5" y="99.0" />
+      <point x="71.5" y="29.5" />
+    </edge>
+    <edge source="org.apache.catalina.core.ApplicationFilterChain" target="org.apache.catalina.core.ApplicationFilterChain">
+      <point x="-71.5" y="29.5" />
+      <point x="91.5" y="79.0" />
+      <point x="0.0" y="79.0" />
+      <point x="0.0" y="29.5" />
+      <point x="-143.0" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8038834951456311" x="319.0" y="237.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
