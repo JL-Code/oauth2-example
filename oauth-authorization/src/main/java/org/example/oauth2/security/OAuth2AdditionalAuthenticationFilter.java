@@ -2,6 +2,7 @@ package org.example.oauth2.security;
 
 import me.chanjar.weixin.cp.bean.WxCpOauth2UserInfo;
 import org.example.oauth2.entity.UaaUser;
+import org.example.oauth2.security.authentication.Authenticator;
 import org.example.oauth2.service.UaaUserService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.*;
-import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
@@ -38,7 +38,7 @@ public class OAuth2AdditionalAuthenticationFilter extends GenericFilterBean impl
 
     private ApplicationContext applicationContext;
     @Autowired
-    private AuthorizationCodeServices authorizationCodeServices;
+    private AdditionalAuthorizationCodeServices authorizationCodeServices;
     @Autowired
     private UaaUserService uaaUserService;
     private Collection<Authenticator> authenticators = Collections.emptyList();
@@ -87,16 +87,20 @@ public class OAuth2AdditionalAuthenticationFilter extends GenericFilterBean impl
             Authentication userAuth = getAuthentication(authToken, clientDetails);
             OAuth2Authentication oauth2Auth = new OAuth2Authentication(storedOAuth2Request, userAuth);
             // 创建授权码，并以授权码为 key 认证主体为 value 存储。
-            ((AdditionalAuthorizationCodeServices) authorizationCodeServices).storeAuthentication(code, oauth2Auth);
-            // 替换 企业微信的授权码为 uaa 的授权码
-//            req.getParameterMap().put("authorization_code", new String[]{authorizationCode});
+            authorizationCodeServices.storeAuthentication(code, oauth2Auth);
         }
         chain.doFilter(req, res);
     }
 
+    /**
+     * 获取认证主体信息
+     * @param auth 从请求中提取信息创建的待认证主体
+     * @param clientDetails 客户端详情
+     * @return
+     */
     private Authentication getAuthentication(OAuth2AdditionalAuthentication auth, ClientDetails clientDetails) {
         // ClientDetails 需要重写，重写后的类包含微信应用、钉钉应用配置等信息
-        String agentId = clientDetails.getAdditionalInformation().get("agentId").toString();
+//        String agentId = clientDetails.getAdditionalInformation().get("agentId").toString();
         // AccessToken 企业微信的 accessToken
         try {
 //            WxCpService corpService = CorpWeChatConfiguration.getCorpService(Integer.valueOf(agentId));

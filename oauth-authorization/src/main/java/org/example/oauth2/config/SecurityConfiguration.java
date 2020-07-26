@@ -1,5 +1,7 @@
 package org.example.oauth2.config;
 
+import org.example.oauth2.provider.IntegrationAuthenticationFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -41,19 +43,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new RedisTokenStore(redisConnectionFactory);
     }
 
-//    /**
-//     * https://segmentfault.com/a/1190000014371789#comment-area
-//     * 取消 IntegrationAuthenticationFilter 的自动注册
-//     *
-//     * @param filter
-//     * @return
-//     */
-//    @Bean
-//    public FilterRegistrationBean registration(CorpWechatAuthenticationFilter filter) {
-//        FilterRegistrationBean registration = new FilterRegistrationBean(filter);
-//        registration.setEnabled(false);
-//        return registration;
-//    }
+    @Bean
+    public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
+        return new IntegrationAuthenticationFilter();
+    }
+
+    /**
+     * https://segmentfault.com/a/1190000014371789#comment-area
+     * 取消 IntegrationAuthenticationFilter 的自动注册
+     *
+     * @param filter
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean registration(IntegrationAuthenticationFilter filter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+        registration.setEnabled(false);
+        return registration;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

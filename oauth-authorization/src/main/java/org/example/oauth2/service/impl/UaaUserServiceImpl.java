@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.oauth2.dao.UaaUserDao;
 import org.example.oauth2.entity.UaaUser;
 import org.example.oauth2.service.UaaUserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,4 +40,14 @@ public class UaaUserServiceImpl extends ServiceImpl<UaaUserDao, UaaUser> impleme
     }
 
 
+    /**
+     * TODO: UaaUserService 需要实现 UserDetailsService
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }

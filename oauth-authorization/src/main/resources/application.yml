@@ -19,4 +19,4 @@ wechat:
 logging.level.org.springframework.security: debug
 logging.level.org.springframework.security.oauth2: debug
 server:
-  port: 8090
+  port: 8080

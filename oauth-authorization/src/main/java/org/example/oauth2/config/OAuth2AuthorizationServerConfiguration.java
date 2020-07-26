@@ -1,5 +1,6 @@
 package org.example.oauth2.config;
 
+import org.example.oauth2.provider.IntegrationAuthenticationFilter;
 import org.example.oauth2.provider.IntegrationUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,8 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     private IntegrationUserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private IntegrationAuthenticationFilter authenticationFilter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -76,6 +79,6 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
-//                .addTokenEndpointAuthenticationFilter(corpWechatAuthenticationFilter);
+//                .addTokenEndpointAuthenticationFilter(authenticationFilter);
     }
 }
