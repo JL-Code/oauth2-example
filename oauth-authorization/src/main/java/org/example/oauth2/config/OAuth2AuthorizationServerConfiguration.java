@@ -36,8 +36,6 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     private IntegrationUserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
-//    @Autowired
-//    private CorpWechatAuthenticationFilter corpWechatAuthenticationFilter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -55,10 +53,9 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
             try {
                 builder.withClient(code)
                         .secret(passwordEncoder.encode(code))
-//                        .redirectUris("http://localhost:8081/cgi-bin/query")
-//                        .autoApprove(true)
-//                        .autoApprove("get_user_info")
-                        .authorizedGrantTypes("password", "client_credentials", "refresh_token", "authorization_code");
+                        .scopes("all")
+                        .authorizedGrantTypes("password", "client_credentials", "refresh_token",
+                                "authorization_code").additionalInformation("agentId=1000002");
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,3 +1,4 @@
+
 spring:
   redis:
     database: 1
@@ -8,16 +9,14 @@ spring:
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
 wechat:
-  client:
-    clientId: [your app id]
-    clientSecret: [you app secret]
-    accessTokenUri: https://qyapi.weixin.qq.com/cgi-bin/gettoken
-    userAuthorizationUri: https://open.weixin.qq.com/connect/oauth2/authorize
-    tokenName: access_token
-    authenticationScheme: query
-    clientAuthenticationScheme: form
-    scope: snsapi_userinfo
-  resource:
-    userInfoUri: https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo
+  corp:
+    corpId: ww13e9492fe4b02153
+    appConfigs:
+      - agentId: 1000002
+        secret: dsq1HWzRkcJ27VxrC8gRsTXu17Kq39LlJIY5kk3w-g4
+        token: xx
+        aesKey: xx
 logging.level.org.springframework.security: debug
 logging.level.org.springframework.security.oauth2: debug
+server:
+  port: 8090

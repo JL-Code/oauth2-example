@@ -13,6 +13,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <weixin-java-cp.version>3.8.0</weixin-java-cp.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- wx-java sdk -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-cp</artifactId>
+            <version>${weixin-java-cp.version}</version>
         </dependency>
     </dependencies>
 
