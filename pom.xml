@@ -31,7 +31,8 @@
     <properties>
         <oauth-common.version>0.0.1-SNAPSHOT</oauth-common.version>
         <oauth-common-spring-boot-starter.version>0.0.1-SNAPSHOT</oauth-common-spring-boot-starter.version>
-        <oauth-common-spring-boot-autoconfigure.version>0.0.1-SNAPSHOT</oauth-common-spring-boot-autoconfigure.version>
+        <oauth-common-spring-boot-autoconfigure.version>0.0.1-SNAPSHOT
+        </oauth-common-spring-boot-autoconfigure.version>
     </properties>
 
     <dependencies>
@@ -59,6 +60,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 钉钉服务端API SDK 依赖-->
+<!--            <dependency>-->
+<!--                <groupId>com.aliyun</groupId>-->
+<!--                <artifactId>aliyun-java-sdk-core</artifactId>-->
+<!--                <version>3.3.0</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.aliyun</groupId>-->
+<!--                <artifactId>alibaba-dingtalk-service-sdk</artifactId>-->
+<!--                <version>1.0.1</version>-->
+<!--            </dependency>-->
             <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
             <dependency>
                 <groupId>org.springframework.security.oauth</groupId>
@@ -94,7 +106,6 @@
         </dependencies>
     </dependencyManagement>
 
-
     <build>
         <plugins>
             <plugin>
@@ -103,5 +114,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- 添加存放钉钉 SDK 的 Maven仓库 -->
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>sonatype-nexus-staging</id>-->
+<!--            <name>Sonatype Nexus Staging</name>-->
+<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
 </project>
