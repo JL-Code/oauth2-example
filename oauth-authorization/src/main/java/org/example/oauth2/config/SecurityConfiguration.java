@@ -43,24 +43,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new RedisTokenStore(redisConnectionFactory);
     }
 
-    @Bean
-    public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
-        return new IntegrationAuthenticationFilter();
-    }
+//    @Bean
+//    public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
+//        return new IntegrationAuthenticationFilter();
+//    }
 
-    /**
-     * https://segmentfault.com/a/1190000014371789#comment-area
-     * 取消 IntegrationAuthenticationFilter 的自动注册
-     *
-     * @param filter
-     * @return
-     */
-    @Bean
-    public FilterRegistrationBean registration(IntegrationAuthenticationFilter filter) {
-        FilterRegistrationBean registration = new FilterRegistrationBean(filter);
-        registration.setEnabled(false);
-        return registration;
-    }
+//    /**
+//     * https://segmentfault.com/a/1190000014371789#comment-area
+//     * 取消 IntegrationAuthenticationFilter 的自动注册
+//     *
+//     * @param filter
+//     * @return
+//     */
+//    @Bean
+//    public FilterRegistrationBean registration(IntegrationAuthenticationFilter filter) {
+//        FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+//        registration.setEnabled(false);
+//        return registration;
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

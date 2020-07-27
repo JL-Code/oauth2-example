@@ -23,8 +23,8 @@ public class OAuth2AdditionalConfiguration extends AuthorizationServerConfigurer
     }
 
     @Bean
-    public FilterRegistrationBean registration(OAuth2AdditionalAuthenticationFilter filter) {
-        FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+    public FilterRegistrationBean registration(OAuth2AdditionalAuthenticationFilter oAuth2AdditionalAuthenticationFilter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean(oAuth2AdditionalAuthenticationFilter);
         registration.setEnabled(false);
         return registration;
     }

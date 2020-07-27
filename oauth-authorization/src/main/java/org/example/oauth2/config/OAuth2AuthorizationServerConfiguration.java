@@ -37,8 +37,8 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     private IntegrationUserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private IntegrationAuthenticationFilter authenticationFilter;
+//    @Autowired
+//    private IntegrationAuthenticationFilter authenticationFilter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
