@@ -1,6 +1,8 @@
 package org.example.common.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 
@@ -11,16 +13,18 @@ import java.util.Collection;
  * @version v1.0
  */
 @Data
-public class UaaUser extends AbstractUserDetails {
+public class UaaUserDetails extends AbstractUserDetails {
 
     private String id;
     private String username;
     private String userCode;
     private String password;
     private String phoneNumber;
+    private String corpWeChatUserId;
+    private String dingtalkUserId;
     private Collection<ResourceAuthority> authorities;
 
-    public UaaUser() {
+    public UaaUserDetails() {
         this.setEnabled(true);
         this.setAccountNonLocked(true);
         this.setAccountNonExpired(true);

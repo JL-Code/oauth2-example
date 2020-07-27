@@ -1,7 +1,6 @@
 package org.example.oauth2.config;
 
-import org.example.oauth2.provider.IntegrationAuthenticationFilter;
-import org.example.oauth2.provider.IntegrationUserDetailsService;
+import org.example.oauth2.security.CompositeUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -34,7 +33,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
     @Autowired
-    private IntegrationUserDetailsService userDetailsService;
+    private CompositeUserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
 //    @Autowired
@@ -58,12 +57,12 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
                         .secret(passwordEncoder.encode(code))
                         .scopes("all")
                         .authorizedGrantTypes("password", "client_credentials", "refresh_token",
-                                "authorization_code").additionalInformation("agentId=1000002");
+                                "authorization_code")
+                        .additionalInformation("agentId=1000002");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-
     }
 
     @Override

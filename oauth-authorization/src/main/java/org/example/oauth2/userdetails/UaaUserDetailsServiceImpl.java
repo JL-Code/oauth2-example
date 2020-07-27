@@ -9,7 +9,6 @@ import org.example.oauth2.dao.UserDao;
 import org.example.oauth2.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +22,7 @@ import java.util.List;
  * @version v1.0
  */
 @Slf4j
-public class PlatformUserDetailsServiceImpl extends ServiceImpl<UserDao, User> implements PlatformUserDetailsService {
+public class UaaUserDetailsServiceImpl extends ServiceImpl<UserDao, User> implements UaaUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -38,16 +38,4 @@ public class UaaUserServiceImpl extends ServiceImpl<UaaUserDao, UaaUser> impleme
         UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getDingtalkUserId, userId));
         return loadedUser;
     }
-
-
-    /**
-     * TODO: UaaUserService 需要实现 UserDetailsService
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 }

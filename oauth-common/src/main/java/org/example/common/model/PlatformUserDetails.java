@@ -15,7 +15,7 @@ import java.util.HashMap;
 @Data
 public class PlatformUserDetails extends AbstractUserDetails {
 
-    public PlatformUserDetails() {
+    public  PlatformUserDetails() {
         this.setEnabled(true);
         this.setAccountNonLocked(true);
         this.setAccountNonExpired(true);

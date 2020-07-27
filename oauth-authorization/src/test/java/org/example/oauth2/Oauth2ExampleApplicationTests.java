@@ -2,7 +2,7 @@ package org.example.oauth2;
 
 import org.example.oauth2.dao.UserDao;
 import org.example.oauth2.entity.User;
-import org.example.oauth2.userdetails.PlatformUserDetailsService;
+import org.example.oauth2.userdetails.UaaUserDetailsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ class Oauth2ExampleApplicationTests {
     @Resource
     private UserDao userDao;
     @Autowired
-    private PlatformUserDetailsService platformUserDetailsService;
+    private UaaUserDetailsService platformUserDetailsService;
 
     @Test
     void contextLoads() {

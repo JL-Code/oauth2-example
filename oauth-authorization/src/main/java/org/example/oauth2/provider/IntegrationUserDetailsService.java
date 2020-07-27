@@ -1,18 +1,16 @@
 package org.example.oauth2.provider;
 
-import org.example.common.model.PlatformUserDetails;
-import org.example.common.model.UaaUser;
+import org.example.common.model.UaaUserDetails;
 import org.example.oauth2.entity.User;
 import org.example.oauth2.provider.authenticator.IntegrationAuthenticator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+//@Service
 public class IntegrationUserDetailsService implements UserDetailsService {
 
 
@@ -24,7 +22,7 @@ public class IntegrationUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UaaUser loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UaaUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         IntegrationAuthentication integrationAuthentication = IntegrationAuthenticationContext.get();
         //判断是否是集成登录
         if (integrationAuthentication == null) {
@@ -37,7 +35,7 @@ public class IntegrationUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
 
-        UaaUser platformUser = new UaaUser();
+        UaaUserDetails platformUser = new UaaUserDetails();
 
         BeanUtils.copyProperties(user, platformUser);
 

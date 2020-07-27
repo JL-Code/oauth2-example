@@ -1,11 +1,14 @@
-package org.example.oauth2.security.wechat.corp;
+package org.example.oauth2.security.authentication.wechat.corp;
 
 import lombok.var;
+import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.cp.bean.WxCpOauth2UserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.example.oauth2.security.OAuth2AdditionalAuthentication;
+import org.example.oauth2.security.OAuth2AdditionalException;
 import org.example.oauth2.security.authentication.AuthorizationCodeAuthenticator;
 import org.example.oauth2.service.UaaUserService;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -20,11 +23,6 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
 
     public CorpWeChatScanCodeAuthenticator(UaaUserService uaaUserService) {
         this.uaaUserService = uaaUserService;
-    }
-
-    @Override
-    public boolean supports(OAuth2AdditionalAuthentication authentication) {
-        return AUTH_SCHEME.equalsIgnoreCase(authentication.getAuthScheme());
     }
 
     /**
@@ -42,8 +40,33 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
      * }
      */
     @Override
-    protected OAuth2AdditionalAuthentication consumerAuthorizationCode(OAuth2AdditionalAuthentication authentication, ClientDetails clientDetails) {
+    protected OAuth2AdditionalAuthentication consumerAuthorizationCode(OAuth2AdditionalAuthentication authentication, ClientDetails clientDetails) throws AuthenticationException {
         return mockConsumerAuthCode(authentication, clientDetails);
+    }
+
+    private OAuth2AdditionalAuthentication consumerAuthCode(OAuth2AdditionalAuthentication authentication,
+                                                            ClientDetails clientDetails) throws AuthenticationException {
+        // 应用ID
+        var agentId = clientDetails.getAdditionalInformation().get("agentId").toString();
+        var corpService = CorpWeChatConfiguration.getCorpService(Integer.valueOf(agentId));
+        try {
+            var userId = authentication.getPrincipal().toString();
+            var userInfo = corpService.getOauth2Service().getUserInfo(userId);
+            if (StringUtils.isEmpty(userInfo.getUserId()) && StringUtils.isNotEmpty(userInfo.getOpenId())) {
+                throw new OAuth2AdditionalException("非企业成员授权");
+            }
+
+            var uaaUser = this.uaaUserService.findUserByCorpWeChatUserId(userInfo.getUserId());
+            if (uaaUser == null) {
+                throw new UsernameNotFoundException("用户不存在");
+            }
+            authentication.setPrincipal(uaaUser);
+            authentication.setAuthenticated(true);
+
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return authentication;
     }
 
     private OAuth2AdditionalAuthentication mockConsumerAuthCode(OAuth2AdditionalAuthentication authentication,
@@ -74,5 +97,10 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
         }
 
         return authentication;
+    }
+
+    @Override
+    public boolean supports(OAuth2AdditionalAuthentication authentication) {
+        return AUTH_SCHEME.equalsIgnoreCase(authentication.getAuthScheme());
     }
 }

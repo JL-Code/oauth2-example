@@ -11,6 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author <a href="mailto:jiangy@highzap.com" rel="nofollow">蒋勇</a>
  * @version v1.0
  */
-public interface PlatformUserDetailsService extends UserDetailsService, IService<User> {
+public interface UaaUserDetailsService extends UserDetailsService, IService<User> {
 
 }

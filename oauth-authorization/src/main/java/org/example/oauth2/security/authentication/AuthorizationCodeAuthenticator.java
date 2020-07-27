@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
-import org.springframework.util.Assert;
 
 /**
  * 授权码认证器.
@@ -60,7 +59,7 @@ public abstract class AuthorizationCodeAuthenticator implements Authenticator, I
      * @return
      */
     protected abstract OAuth2AdditionalAuthentication consumerAuthorizationCode(OAuth2AdditionalAuthentication authentication,
-                                                                                ClientDetails clientDetails);
+                                                                                ClientDetails clientDetails) throws AuthenticationException;
 
     @Override
     public Authentication authenticate(OAuth2AdditionalAuthentication authentication) {

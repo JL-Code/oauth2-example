@@ -1,4 +1,3 @@
-
 spring:
   redis:
     database: 1
@@ -8,14 +7,38 @@ spring:
     username: root
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
+# 微信配置信息
 wechat:
+  # 企业微信配置
   corp:
     corpId: ww13e9492fe4b02153
+    # 企业微信应用配置
     appConfigs:
       - agentId: 1000002
         secret: dsq1HWzRkcJ27VxrC8gRsTXu17Kq39LlJIY5kk3w-g4
         token: xx
         aesKey: xx
+dingtalk:
+  corpId: dingdf75c1727056d6a635c2f4657eb6378f
+  # 小程序
+  miniApp:
+    appConfigs:
+      - suiteId: 12455002
+        appId: 52421
+        suiteKey: suitejxtk5quxbaqoiyk6
+        suiteSecret: g50rs9TLNIuSVV__0VW_vTa5XD2nBVN2UfR_4nb1ws1cu0y-_zJ0OLUpM-chujgt
+  # H5 微应用
+  h5MicroApp:
+    appConfigs:
+      - agentId: 319114986
+        appKey: dinggx4lhy2v17ixxwxu
+        appSecret: dYY7sCpDQV9Y2a3_89MhLfYaFZqlx3tXIXVw-IKcCfqV6k2aCF7CR6vg-qMwaL1t
+  # 扫描登录应用
+  scanCodeApp:
+    appConfigs:
+      - appId: dingoakmulh1ut9nyk6kx4
+        appSecret: U0U-9P9FA1iXl-OljiVJkd_MKxnOLiF6LZ03KGccxdmrwGDevS-hKB3NrEfwgujr
+
 logging.level.org.springframework.security: debug
 logging.level.org.springframework.security.oauth2: debug
 server:

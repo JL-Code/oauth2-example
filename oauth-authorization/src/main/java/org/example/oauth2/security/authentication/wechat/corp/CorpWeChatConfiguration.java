@@ -1,4 +1,4 @@
-package org.example.oauth2.security.wechat.corp;
+package org.example.oauth2.security.authentication.wechat.corp;
 
 import com.google.common.collect.Maps;
 import lombok.val;
