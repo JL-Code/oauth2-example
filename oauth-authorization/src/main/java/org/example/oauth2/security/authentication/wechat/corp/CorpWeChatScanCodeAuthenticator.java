@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.example.oauth2.security.OAuth2AdditionalAuthentication;
 import org.example.oauth2.security.OAuth2AdditionalException;
 import org.example.oauth2.security.authentication.AuthorizationCodeAuthenticator;
+import org.example.oauth2.security.client.OAuth2ClientDetails;
 import org.example.oauth2.service.UaaUserService;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,14 +42,13 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
      */
     @Override
     protected OAuth2AdditionalAuthentication consumerAuthorizationCode(OAuth2AdditionalAuthentication authentication, ClientDetails clientDetails) throws AuthenticationException {
-        return mockConsumerAuthCode(authentication, clientDetails);
+        return consumerAuthCode(authentication, clientDetails);
     }
 
     private OAuth2AdditionalAuthentication consumerAuthCode(OAuth2AdditionalAuthentication authentication,
                                                             ClientDetails clientDetails) throws AuthenticationException {
-        // 应用ID
-        var agentId = clientDetails.getAdditionalInformation().get("agentId").toString();
-        var corpService = CorpWeChatConfiguration.getCorpService(Integer.valueOf(agentId));
+        var app = ((OAuth2ClientDetails) clientDetails).getCorpWeChatApp();
+        var corpService = CorpWeChatConfiguration.getCorpService(app.getAgentId());
         try {
             var userId = authentication.getPrincipal().toString();
             var userInfo = corpService.getOauth2Service().getUserInfo(userId);
@@ -65,6 +65,7 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
 
         } catch (WxErrorException e) {
             e.printStackTrace();
+            throw new OAuth2AdditionalException(e.getMessage(), e);
         }
         return authentication;
     }

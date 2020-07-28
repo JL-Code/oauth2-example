@@ -55,7 +55,7 @@ public abstract class AuthorizationCodeAuthenticator implements Authenticator, I
      * 消费 OAuth2Server 提供的授权码以换取用户标识,由子类重写.
      *
      * @param authentication
-     * @param clientDetails  当前客户端信息
+     * @param clientDetails  客户端信息
      * @return
      */
     protected abstract OAuth2AdditionalAuthentication consumerAuthorizationCode(OAuth2AdditionalAuthentication authentication,

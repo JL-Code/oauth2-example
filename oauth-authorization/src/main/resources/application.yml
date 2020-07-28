@@ -23,10 +23,9 @@ dingtalk:
   # 小程序
   miniApp:
     appConfigs:
-      - suiteId: 12455002
-        appId: 52421
-        suiteKey: suitejxtk5quxbaqoiyk6
-        suiteSecret: g50rs9TLNIuSVV__0VW_vTa5XD2nBVN2UfR_4nb1ws1cu0y-_zJ0OLUpM-chujgt
+      - agentId: 319114986
+        appKey: dinggx4lhy2v17ixxwxu
+        appSecret: dYY7sCpDQV9Y2a3_89MhLfYaFZqlx3tXIXVw-IKcCfqV6k2aCF7CR6vg-qMwaL1t
   # H5 微应用
   h5MicroApp:
     appConfigs:
