@@ -50,6 +50,7 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
         var app = ((OAuth2ClientDetails) clientDetails).getCorpWeChatApp();
         var corpService = CorpWeChatConfiguration.getCorpService(app.getAgentId());
         try {
+            // getPrincipal() 实际值是授权码 code。
             var userId = authentication.getPrincipal().toString();
             var userInfo = corpService.getOauth2Service().getUserInfo(userId);
             if (StringUtils.isEmpty(userInfo.getUserId()) && StringUtils.isNotEmpty(userInfo.getOpenId())) {
@@ -60,6 +61,12 @@ public class CorpWeChatScanCodeAuthenticator extends AuthorizationCodeAuthentica
             if (uaaUser == null) {
                 throw new UsernameNotFoundException("用户不存在");
             }
+
+            // 判断用户是否禁用
+            if(uaaUser.isDisabled()){
+                throw new OAuth2AdditionalException("用户已被禁用");
+            }
+
             authentication.setPrincipal(uaaUser);
             authentication.setAuthenticated(true);
 

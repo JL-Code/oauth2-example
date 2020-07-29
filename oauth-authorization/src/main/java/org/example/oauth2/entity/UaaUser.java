@@ -20,4 +20,8 @@ public class UaaUser implements Serializable {
     private String corpWeChatUserId;
     @TableField("ding_talk_account")
     private String dingtalkUserId;
+    @TableField("is_disabled")
+    private boolean disabled;
+    @TableField(value = "is_deleted")
+    private boolean deleted;
 }

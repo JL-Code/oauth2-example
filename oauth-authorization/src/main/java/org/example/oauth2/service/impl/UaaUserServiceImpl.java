@@ -17,25 +17,27 @@ public class UaaUserServiceImpl extends ServiceImpl<UaaUserDao, UaaUser> impleme
 
     @Override
     public UaaUser findUserByPhoneNumber(String phone) {
-        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getPhoneNumber, phone));
+        UaaUser loadedUser =
+                getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getPhoneNumber, phone).eq(UaaUser::isDeleted,
+                        false));
         return loadedUser;
     }
 
     @Override
     public UaaUser findUserByCorpWeChatUserId(String userId) {
-        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getCorpWeChatUserId, userId));
+        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getCorpWeChatUserId, userId).eq(UaaUser::isDeleted, false));
         return loadedUser;
     }
 
     @Override
     public UaaUser findUserByUsername(String username) {
-        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getUserCode, username));
+        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getUserCode, username).eq(UaaUser::isDeleted, false));
         return loadedUser;
     }
 
     @Override
     public UaaUser findUserByDingtalkUserId(String userId) {
-        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getDingtalkUserId, userId));
+        UaaUser loadedUser = getOne(Wrappers.<UaaUser>lambdaQuery().eq(UaaUser::getDingtalkUserId, userId).eq(UaaUser::isDeleted, false));
         return loadedUser;
     }
 }
