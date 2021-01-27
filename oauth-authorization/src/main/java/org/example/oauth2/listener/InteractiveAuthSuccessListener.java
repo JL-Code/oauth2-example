@@ -5,11 +5,12 @@ import org.springframework.security.authentication.event.InteractiveAuthenticati
 import org.springframework.stereotype.Component;
 
 @Component
-public class InteractiveAuthenticationSuccessListener implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
+public class InteractiveAuthSuccessListener implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
         System.out.println("InteractiveAuthenticationSuccessEvent listener");
-        System.out.println(event);
+        System.out.println(event.getAuthentication());
+        event.getAuthentication().getDetails();
     }
 }
