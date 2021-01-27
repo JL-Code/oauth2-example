@@ -17,15 +17,12 @@
     </parent>
 
     <modules>
-        <module>oauth-authorization</module>
-        <module>oauth-resource</module>
         <module>oauth-common</module>
         <module>oauth-common-spring-boot-starter</module>
         <module>oauth-common-spring-boot-autoconfigure</module>
-        <module>oauth-resource2</module>
+        <module>oauth-authorization</module>
+        <module>oauth-resource</module>
         <module>oauth-gateway</module>
-        <module>oauth-gateway-test</module>
-        <module>oauth-authorization-config</module>
     </modules>
 
     <properties>
