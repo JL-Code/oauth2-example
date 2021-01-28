@@ -24,6 +24,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret("clientSecret")
                 .authorizedGrantTypes("authorization_code")
                 .scopes("api_userinfo")
-                .redirectUris("http://localhost:8081");
+                .redirectUris("http://localhost:8081/#/oauth/transfer-page");
     }
 }

@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+xxx -> AbstractAuthenticationProcessingFilter:doFilter(ServletRequest,ServletResponse,FilterChain)
+activate AbstractAuthenticationProcessingFilter
+AbstractAuthenticationProcessingFilter->AbstractAuthenticationProcessingFilter:attemptAuthentication()
+activate AbstractAuthenticationProcessingFilter
+AbstractAuthenticationProcessingFilter -> UsernamePasswordAuthenticationFilter:attemptAuthentication()
+activate UsernamePasswordAuthenticationFilter
+
+UsernamePasswordAuthenticationFilter -> ProviderManager:this.getAuthenticationManager().authenticate(authRequest)
+activate ProviderManager
+
+ProviderManager -> AbstractUserDetailsAuthenticationProvider: authenticate()
+activate AbstractUserDetailsAuthenticationProvider
+
+AbstractUserDetailsAuthenticationProvider -> DaoAuthenticationProvider:retrieveUser()
+activate DaoAuthenticationProvider
+
+DaoAuthenticationProvider --> AbstractUserDetailsAuthenticationProvider:UserDetails
+
+AbstractUserDetailsAuthenticationProvider -> DaoAuthenticationProvider:additionalAuthenticationChecks()\n 允许子类进行额外的检查（密码校验）
+
+DaoAuthenticationProvider --> AbstractUserDetailsAuthenticationProvider
+deactivate DaoAuthenticationProvider
+
+AbstractUserDetailsAuthenticationProvider -> AbstractUserDetailsAuthenticationProvider:createSuccessAuthentication(Object,Authentication, UserDetails)
+activate AbstractUserDetailsAuthenticationProvider
+
+AbstractUserDetailsAuthenticationProvider -> DaoAuthenticationProvider:createSuccessAuthentication()
+activate DaoAuthenticationProvider
+
+DaoAuthenticationProvider -> AbstractUserDetailsAuthenticationProvider:super.createSuccessAuthentication()
+deactivate DaoAuthenticationProvider
+deactivate AbstractUserDetailsAuthenticationProvider
+
+AbstractUserDetailsAuthenticationProvider --> ProviderManager:Authentication
+deactivate AbstractUserDetailsAuthenticationProvider
+
+ProviderManager --> UsernamePasswordAuthenticationFilter:Authentication
+deactivate ProviderManager
+
+UsernamePasswordAuthenticationFilter --> AbstractAuthenticationProcessingFilter:Authentication
+deactivate UsernamePasswordAuthenticationFilter
+deactivate AbstractAuthenticationProcessingFilter
+
+AbstractAuthenticationProcessingFilter -> AbstractAuthenticationProcessingFilter:successfulAuthentication()\neventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authResult, this.getClass()));
+
+AbstractAuthenticationProcessingFilter-> AuthenticationSuccessHandler:onAuthenticationSuccess
+activate AuthenticationSuccessHandler
+
+AuthenticationSuccessHandler --> AbstractAuthenticationProcessingFilter
+deactivate AuthenticationSuccessHandler
+
+AbstractAuthenticationProcessingFilter --> xxx
+deactivate AbstractAuthenticationProcessingFilter
+
+@enduml
