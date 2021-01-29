@@ -25,7 +25,7 @@ export default {
     },
     scope: {
       type: String,
-      default: "api_userinfo"
+      default: "snsapi_userinfo"
     },
     state: {
       type: String,

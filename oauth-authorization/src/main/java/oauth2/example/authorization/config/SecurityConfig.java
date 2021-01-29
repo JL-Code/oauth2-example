@@ -38,15 +38,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // super.configure(http);
         http
+                .formLogin()
+                // 登录静态页面地址
+                .loginPage("/login.html")
+                // 登录请求处理地址
+                .loginProcessingUrl("/login")
+                .and()
                 .authorizeRequests()
+                .antMatchers("/login.html", "/oauth2/login")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin().and()
                 // 禁用 session
 //                .sessionManagement().disable()
                 // 禁用  httpBasic Filter 和  csrf Filter
-//                .httpBasic().disable()
+                .httpBasic().disable()
                 .csrf().disable();
     }
 
