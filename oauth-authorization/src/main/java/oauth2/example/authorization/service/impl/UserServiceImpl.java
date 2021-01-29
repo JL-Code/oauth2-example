@@ -7,17 +7,12 @@ import oauth2.example.authorization.repository.UserRepository;
 import oauth2.example.authorization.security.model.ResourceGrantedAuthority;
 import oauth2.example.authorization.security.model.UserIdentity;
 import oauth2.example.authorization.service.UserService;
-import org.apache.commons.io.CopyUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * <p>创建时间: 2021/1/28 </p>
@@ -31,7 +26,9 @@ public class UserServiceImpl extends ServiceImpl<UserRepository, User> implement
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = super.getBaseMapper().selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
+        User user = super.getBaseMapper().selectOne(
+                Wrappers.<User>lambdaQuery().eq(User::getUsername, username).or().eq(User::getPhoneNumber, username)
+        );
 
         if (user == null) {
             throw new UsernameNotFoundException(String.format("未找到 [%s] 相关的用户信息", username));

@@ -9,8 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.UUID;
 
 /**
  * <p>创建时间: 2021/1/28 </p>
@@ -40,13 +43,20 @@ class UserServiceImplTest {
         PasswordEncoder passwordEncoder =
                 PasswordEncoderFactories.createDelegatingPasswordEncoder();
         User user = new User();
-        user.setId("1212");
+        user.setId(UUID.randomUUID().toString());
         user.setUsername("mecode");
         user.setPassword(passwordEncoder.encode("123"));
+        user.setPhoneNumber("18580687918");
         boolean saved = userService.save(user);
 
         System.out.println(user);
 
         Asserts.check(saved, "保存成功");
+    }
+
+    @Test
+    public void testBCryptPasswordEncoder() {
+        String encodedPassword = new BCryptPasswordEncoder().encode("Cqhz.2020");
+        System.out.println(encodedPassword);
     }
 }

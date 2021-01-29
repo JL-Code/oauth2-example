@@ -44,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().and()
                 // 禁用 session
-                .sessionManagement().disable()
+//                .sessionManagement().disable()
                 // 禁用  httpBasic Filter 和  csrf Filter
-                .httpBasic().disable()
+//                .httpBasic().disable()
                 .csrf().disable();
     }
 

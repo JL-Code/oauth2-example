@@ -21,7 +21,7 @@ export default {
     },
     redirectUri: {
       type: String,
-      default: "http://localhost:8081/#/oauth/transfer-page"
+      default: "http://localhost:8081/oauth2/transfer-page"
     },
     scope: {
       type: String,
@@ -36,7 +36,7 @@ export default {
     buildAuthorizeUri() {
       let authorize_uri =
           `${this.domain}/oauth/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${this.scope}&state=${this.state}`;
-      alert(authorize_uri);
+      // alert(authorize_uri);
       return authorize_uri;
     },
     startup() {
