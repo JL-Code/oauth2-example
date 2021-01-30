@@ -3,6 +3,8 @@ package oauth2.example.authorization.config;
 import oauth2.example.authorization.security.CustomizedRedirectResolver;
 import oauth2.example.authorization.security.model.UserIdentity;
 import oauth2.example.authorization.security.service.CustomizedClientDetailsService;
+import oauth2.example.authorization.service.impl.CustomizedClientDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -27,11 +29,8 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private CustomizedClientDetailsService clientDetailsService;
-
-    public AuthorizationServerConfig(CustomizedClientDetailsService clientDetailsService) {
-        this.clientDetailsService = clientDetailsService;
-    }
+    @Autowired
+    CustomizedClientDetailsService clientDetailsService;
 
     /**
      * 默认的重定向为全匹配 scheme、userInfo、host、port、queryParam
