@@ -2,6 +2,7 @@ package oauth2.example.authorization.config;
 
 import oauth2.example.authorization.security.CustomizedRedirectResolver;
 import oauth2.example.authorization.security.model.UserIdentity;
+import oauth2.example.authorization.security.service.CustomizedClientDetailsService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -9,10 +10,9 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,37 +27,41 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    // 配置客户端信息
+    private CustomizedClientDetailsService clientDetailsService;
 
+    public AuthorizationServerConfig(CustomizedClientDetailsService clientDetailsService) {
+        this.clientDetailsService = clientDetailsService;
+    }
+
+    /**
+     * 默认的重定向为全匹配 scheme、userInfo、host、port、queryParam
+     * protected boolean redirectMatches(String requestedRedirect, String redirectUri) {
+     * UriComponents requestedRedirectUri = UriComponentsBuilder.fromUriString(requestedRedirect).build();
+     * UriComponents registeredRedirectUri = UriComponentsBuilder.fromUriString(redirectUri).build();
+     * <p>
+     * boolean schemeMatch = isEqual(registeredRedirectUri.getScheme(), requestedRedirectUri.getScheme());
+     * boolean userInfoMatch = isEqual(registeredRedirectUri.getUserInfo(), requestedRedirectUri.getUserInfo());
+     * boolean hostMatch = hostMatches(registeredRedirectUri.getHost(), requestedRedirectUri.getHost());
+     * boolean portMatch = matchPorts ? registeredRedirectUri.getPort() == requestedRedirectUri.getPort() : true;
+     * boolean pathMatch = isEqual(registeredRedirectUri.getPath(),
+     * StringUtils.cleanPath(requestedRedirectUri.getPath()));
+     * boolean queryParamMatch = matchQueryParams(registeredRedirectUri.getQueryParams(),
+     * requestedRedirectUri.getQueryParams());
+     * <p>
+     * return schemeMatch && userInfoMatch && hostMatch && portMatch && pathMatch && queryParamMatch;
+     * }
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("clientId")
-                .secret("{noop}clientSecret")
-                .authorizedGrantTypes("authorization_code")
-                .scopes("snsapi_base", "snsapi_userinfo")
-                .autoApprove("snsapi_base", "snsapi_userinfo")
-//                .redirectUris("http://localhost:8081/oauth2/transfer-page");
-                /**
-                 * 默认的重定向为全匹配 scheme、userInfo、host、port、queryParam
-                 * protected boolean redirectMatches(String requestedRedirect, String redirectUri) {
-                 * 		UriComponents requestedRedirectUri = UriComponentsBuilder.fromUriString(requestedRedirect).build();
-                 * 		UriComponents registeredRedirectUri = UriComponentsBuilder.fromUriString(redirectUri).build();
-                 *
-                 * 		boolean schemeMatch = isEqual(registeredRedirectUri.getScheme(), requestedRedirectUri.getScheme());
-                 * 		boolean userInfoMatch = isEqual(registeredRedirectUri.getUserInfo(), requestedRedirectUri.getUserInfo());
-                 * 		boolean hostMatch = hostMatches(registeredRedirectUri.getHost(), requestedRedirectUri.getHost());
-                 * 		boolean portMatch = matchPorts ? registeredRedirectUri.getPort() == requestedRedirectUri.getPort() : true;
-                 * 		boolean pathMatch = isEqual(registeredRedirectUri.getPath(),
-                 * 				StringUtils.cleanPath(requestedRedirectUri.getPath()));
-                 * 		boolean queryParamMatch = matchQueryParams(registeredRedirectUri.getQueryParams(),
-                 * 				requestedRedirectUri.getQueryParams());
-                 *
-                 * 		return schemeMatch && userInfoMatch && hostMatch && portMatch && pathMatch && queryParamMatch;
-                 * }
-                 */
-                // 重定向地址需要带上 scheme
-                .redirectUris("http://localhost:8081", "https://localhost:8081");
+//        clients.inMemory()
+//                .withClient("clientId")
+//                .secret("{noop}clientSecret")
+//                .authorizedGrantTypes("authorization_code")
+//                .scopes("snsapi_base", "snsapi_userinfo")
+//                .autoApprove("snsapi_base", "snsapi_userinfo")
+//                // 重定向地址需要带上 scheme
+//                .redirectUris("http://localhost:8081", "https://localhost:8081");
+        clients.withClientDetails(clientDetailsService);
     }
 
     @Override
