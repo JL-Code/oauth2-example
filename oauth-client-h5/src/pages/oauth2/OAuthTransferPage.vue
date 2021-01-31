@@ -23,8 +23,8 @@ export default {
       // 向后台发起消费 code 的请求
       oauth2Client.consumeAuthorizationCode(code).then(res => {
         this.accessTokenResponse = res.data;
-        let {access_token, userid} = this.accessTokenResponse;
-        this.$router.push({name: "userPage", query: {accessToken: access_token, userId: userid}})
+        let {access_token, openid} = this.accessTokenResponse;
+        this.$router.push({name: "userPage", query: {accessToken: access_token, openId: openid}})
       }).catch(err => {
         console.error(err)
       })

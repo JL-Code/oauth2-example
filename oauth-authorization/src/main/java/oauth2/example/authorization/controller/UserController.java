@@ -23,12 +23,12 @@ public class UserController {
     /**
      * 获取用户信息
      *
-     * @param userId
+     * @param openId
      * @return
      */
     @GetMapping("/oauth/userinfo")
-    public User getUserInfo(String userId) {
-        User user = userService.getById(userId);
+    public User getUserInfo(String openId) {
+        User user = userService.getById(openId);
         return user;
     }
 }

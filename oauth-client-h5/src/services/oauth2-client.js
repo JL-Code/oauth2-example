@@ -21,8 +21,8 @@ export default class {
         )
     }
 
-    static fetchUser(userId, accessToken) {
-        let endpoint = `/oauth/userinfo?userId=${userId}`;
+    static fetchUser(openid, accessToken) {
+        let endpoint = `/oauth/userinfo?openId=${openid}`;
         return axios.get(endpoint, {headers: {"Authorization": `Bearer ${accessToken}`}});
     }
 }
