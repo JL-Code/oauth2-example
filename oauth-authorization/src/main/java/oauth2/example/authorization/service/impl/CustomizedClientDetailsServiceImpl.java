@@ -29,7 +29,7 @@ import java.util.Set;
 public class CustomizedClientDetailsServiceImpl implements CustomizedClientDetailsService {
 
     private JsonMapper mapper = createJsonMapper();
-    private static final Log logger = LogFactory.getLog(OAuth2ClientDetails.class);
+    private static final Log logger = LogFactory.getLog(CustomizedClientDetailsServiceImpl.class);
     private PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
     private OAuth2ClientDetailsRepository repository;
 

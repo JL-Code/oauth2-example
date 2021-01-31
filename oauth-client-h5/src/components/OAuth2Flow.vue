@@ -8,10 +8,10 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'OAuth2Flow',
   props: {
     msg: String,
-    domain: {
+    authorizationServer: {
       type: String,
       default: "http://localhost:8080"
     },
@@ -35,7 +35,7 @@ export default {
   methods: {
     buildAuthorizeUri() {
       let authorize_uri =
-          `${this.domain}/oauth/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${this.scope}&state=${this.state}`;
+          `${this.authorizationServer}/oauth/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${this.scope}&state=${this.state}`;
       // alert(authorize_uri);
       return authorize_uri;
     },

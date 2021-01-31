@@ -3,18 +3,13 @@ package oauth2.example.authorization.config;
 import oauth2.example.authorization.security.CustomizedRedirectResolver;
 import oauth2.example.authorization.security.model.UserIdentity;
 import oauth2.example.authorization.security.service.CustomizedClientDetailsService;
-import oauth2.example.authorization.service.impl.CustomizedClientDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,8 +24,13 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    CustomizedClientDetailsService clientDetailsService;
+    private AuthenticationManager authenticationManager;
+    private CustomizedClientDetailsService clientDetailsService;
+
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager, CustomizedClientDetailsService clientDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.clientDetailsService = clientDetailsService;
+    }
 
     /**
      * 默认的重定向为全匹配 scheme、userInfo、host、port、queryParam
@@ -65,25 +65,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.redirectResolver(new CustomizedRedirectResolver());
-        endpoints.tokenEnhancer(new TokenEnhancer() {
-            @Override
-            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-                DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-                UserIdentity identity = (UserIdentity) authentication.getPrincipal();
+        endpoints.redirectResolver(new CustomizedRedirectResolver())
+                .authenticationManager(authenticationManager);
+        endpoints.tokenEnhancer((accessToken, authentication) -> {
+            DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+            UserIdentity identity = (UserIdentity) authentication.getPrincipal();
 
-                // 术语解释： Principal 主体  Identity 身份 Role 角色。
-                // Principal = Identity + Role
-                // https://stackoverflow.com/questions/28436332/what-is-really-a-principal-in-net
-                // https://docs.microsoft.com/en-us/dotnet/standard/security/principal-and-identity-objects
+            // 术语解释： Principal 主体  Identity 身份 Role 角色。
+            // Principal = Identity + Role
+            // https://stackoverflow.com/questions/28436332/what-is-really-a-principal-in-net
+            // https://docs.microsoft.com/en-us/dotnet/standard/security/principal-and-identity-objects
 
-                Map<String, Object> hash = new LinkedHashMap();
-                hash.put("userid", identity.getId());
+            Map<String, Object> hash = new LinkedHashMap();
+            hash.put("userid", identity.getId());
 
-                token.setAdditionalInformation(hash);
+            token.setAdditionalInformation(hash);
 
-                return token;
-            }
+            return token;
         });
     }
 }

@@ -8,7 +8,9 @@ import oauth2.example.authorization.security.model.ResourceGrantedAuthority;
 import oauth2.example.authorization.security.model.UserIdentity;
 import oauth2.example.authorization.service.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,8 @@ import java.util.Arrays;
  * @version v1.0
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserRepository, User> implements UserService {
+@Primary
+public class UserServiceImpl extends ServiceImpl<UserRepository, User> implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

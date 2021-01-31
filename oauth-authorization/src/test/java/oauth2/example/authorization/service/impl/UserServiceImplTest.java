@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +26,13 @@ import java.util.UUID;
 class UserServiceImplTest {
 
     @Autowired
+    UserDetailsService userDetailsService;
+    @Autowired
     UserService userService;
 
     @Test
     void loadUserByUsername() throws JsonProcessingException {
-        UserDetails userDetails = userService.loadUserByUsername("mecode");
+        UserDetails userDetails = userDetailsService.loadUserByUsername("mecode");
 
         String jsonStr = new ObjectMapper().writeValueAsString(userDetails);
 

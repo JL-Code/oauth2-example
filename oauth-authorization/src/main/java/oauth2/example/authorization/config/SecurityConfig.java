@@ -1,15 +1,12 @@
 package oauth2.example.authorization.config;
 
-import oauth2.example.authorization.service.UserService;
-import oauth2.example.authorization.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,8 +21,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserService userDetailsService;
+    private UserDetailsService userDetailsService;
+
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    /**
+     * 启用  Resource Owner Password Credentials Grant
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -45,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login.html", "/oauth2/login")
+                .antMatchers("/login.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
