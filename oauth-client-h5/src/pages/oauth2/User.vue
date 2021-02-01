@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <p>
-      <input type="text" v-model="userId">
+      <input type="text" v-model="openId">
       <input type="text" v-model="accessToken">
     </p>
     <button type="button" @click="fetchUser">获取用户信息</button>
@@ -18,17 +18,17 @@ export default {
   data() {
     return {
       user: {},
-      userId: "",
+      openId: "",
       accessToken: ""
     }
   },
   created() {
-    this.userId = this.$route.query.userId;
+    this.openId = this.$route.query.openId;
     this.accessToken = this.$route.query.accessToken;
   },
   methods: {
     fetchUser() {
-      oauthClient.fetchUser(this.userId, this.accessToken).then(res => {
+      oauthClient.fetchUser(this.openId, this.accessToken).then(res => {
         this.user = res.data;
         console.log(res);
       }).catch(err => {

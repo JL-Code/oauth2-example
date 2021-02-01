@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.8.RELEASE</version>
+        <version>2.2.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -23,6 +23,7 @@
         <module>oauth-authorization</module>
         <module>oauth-resource</module>
         <module>oauth-gateway</module>
+        <module>oauth2-sso</module>
     </modules>
 
     <properties>

@@ -1,6 +1,10 @@
 <template>
   <div class="home-page">
     <OAuth2Flow></OAuth2Flow>
+    <p>
+      <router-link to="/uaa">UAA 授权中心</router-link>
+      <router-link to="/other">Other 授权中心</router-link>
+    </p>
   </div>
 </template>
 

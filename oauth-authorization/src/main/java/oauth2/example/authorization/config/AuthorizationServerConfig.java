@@ -5,11 +5,13 @@ import oauth2.example.authorization.security.model.UserIdentity;
 import oauth2.example.authorization.security.service.CustomizedClientDetailsService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,12 +26,14 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private AuthenticationManager authenticationManager;
     private CustomizedClientDetailsService clientDetailsService;
+    private UserDetailsService userDetailsService;
+    private AuthenticationManager authenticationManager;
 
-    public AuthorizationServerConfig(AuthenticationManager authenticationManager, CustomizedClientDetailsService clientDetailsService) {
-        this.authenticationManager = authenticationManager;
+    public AuthorizationServerConfig(CustomizedClientDetailsService clientDetailsService, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
         this.clientDetailsService = clientDetailsService;
+        this.userDetailsService = userDetailsService;
+        this.authenticationManager = authenticationManager;
     }
 
     /**
@@ -64,9 +68,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+
+    }
+
+    @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
         endpoints.redirectResolver(new CustomizedRedirectResolver())
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager)
+        .userDetailsService(userDetailsService);
+
         endpoints.tokenEnhancer((accessToken, authentication) -> {
             DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
             UserIdentity identity = (UserIdentity) authentication.getPrincipal();
@@ -77,7 +89,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             // https://docs.microsoft.com/en-us/dotnet/standard/security/principal-and-identity-objects
 
             Map<String, Object> hash = new LinkedHashMap();
-            hash.put("userid", identity.getId());
+            hash.put("openid", identity.getId());
 
             token.setAdditionalInformation(hash);
 
