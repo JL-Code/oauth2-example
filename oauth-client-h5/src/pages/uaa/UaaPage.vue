@@ -12,9 +12,9 @@ export default {
   components: {OAuth2Flow},
   data() {
     return {
-      authorizationServer: "http://localhost:7050",
+      authorizationServer: "http://localhost:8088",
       clientId: "clientId",
-      redirectUri: "http://localhost:8081/oauth2/transfer-page",
+      redirectUri: "http://localhost:8082/oauth2/transfer-page",
     }
   },
   created() {

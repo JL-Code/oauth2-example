@@ -50,10 +50,6 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/api/oauth/**")
-                .permitAll();
         super.configure(http);
     }
 }

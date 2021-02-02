@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <p>创建时间: 2021/1/28 </p>
  *
@@ -12,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @TableName("um_user")
-public class User {
+public class User implements Serializable {
     private String id;
     private String username;
     private String password;

@@ -51,10 +51,29 @@ class CustomizedClientDetailsServiceImplTest {
     }
 
     @Test
+    void addResourceServerClient() {
+
+        BaseClientDetails clientDetails = new BaseClientDetails();
+        clientDetails.setClientId("cdb");
+        clientDetails.setClientSecret("cdb");
+        clientDetails.setAuthorizedGrantTypes(Arrays.asList("authorization_code", "refresh_token", "password"));
+        clientDetails.setScope(Arrays.asList("snsapi_base", "snsapi_userinfo"));
+        clientDetails.setAutoApproveScopes(Arrays.asList("snsapi_base", "snsapi_userinfo"));
+        clientDetails.setRegisteredRedirectUri(Sets.newSet("http://localhost:8081", "http://localhost:8082"));
+
+        service.addClientDetails(clientDetails);
+
+        ClientDetails result = service.loadClientByClientId("cdb");
+
+        assertNotNull(result);
+    }
+
+    @Test
     void updateClientDetails() {
     }
 
     @Test
     void deleteByClientId() {
+
     }
 }

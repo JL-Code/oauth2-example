@@ -1,9 +1,7 @@
 <template>
-  <div class="user">
-    <p>
-      <input type="text" v-model="openId">
-      <input type="text" v-model="accessToken">
-    </p>
+  <div class="user oauth-form">
+    <p><input type="text" v-model="openId" /></p>
+    <p><input type="text" v-model="accessToken" /></p>
     <button type="button" @click="fetchUser">获取用户信息</button>
     <p>
       {{ user }}
@@ -11,7 +9,7 @@
   </div>
 </template>
 <script>
-import oauthClient from '@/services/oauth2-client'
+import oauthClient from "@/services/oauth2-client";
 
 export default {
   name: "User",
@@ -19,8 +17,9 @@ export default {
     return {
       user: {},
       openId: "",
-      accessToken: ""
-    }
+      userId: "",
+      accessToken: "",
+    };
   },
   created() {
     this.openId = this.$route.query.openId;
@@ -28,13 +27,22 @@ export default {
   },
   methods: {
     fetchUser() {
-      oauthClient.fetchUser(this.openId, this.accessToken).then(res => {
-        this.user = res.data;
-        console.log(res);
-      }).catch(err => {
-        console.error(err)
-      })
-    }
-  }
-}
+      let id = this.openId || this.userId;
+      oauthClient
+        .fetchUser(id, this.accessToken)
+        .then((res) => {
+          this.user = res.data;
+          console.log(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+};
 </script>
+<style>
+.oauth-form input {
+  width: 300px;
+}
+</style>

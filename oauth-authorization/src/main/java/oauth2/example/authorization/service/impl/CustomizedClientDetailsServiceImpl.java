@@ -95,7 +95,7 @@ public class CustomizedClientDetailsServiceImpl implements CustomizedClientDetai
 
     @Override
     public boolean deleteByClientId(String clientId) {
-        return false;
+        return repository.deleteById(clientId) != 1;
     }
 
     private OAuth2ClientDetails convertFields(ClientDetails clientDetails) {

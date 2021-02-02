@@ -1,16 +1,19 @@
 package oauth2.example.authorization.config;
 
+import oauth2.example.authorization.security.SecurityConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * <p>创建时间: 2021/1/27 </p>
@@ -19,25 +22,35 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @version v1.0
  */
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired(required = false)
+    private AuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired(required = false)
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
     private UserDetailsService userDetailsService;
 
     public SecurityConfig(UserDetailsService userDetailsService) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.userDetailsService = userDetailsService;
     }
 
     /**
      * 启用  Resource Owner Password Credentials Grant
-     * @return
+     *
+     * @return {@link AuthenticationManager}
      * @throws Exception
      */
-//    @Bean
-//    public AuthenticationManager authenticationManager() throws Exception {
-//        return super.authenticationManager();
-//    }
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
+    /**
+     * 注入一个 PasswordEncoder Bean 用于密码加解密
+     *
+     * @return {@link PasswordEncoder}
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder passwordEncoder =
@@ -51,35 +64,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 // 登录静态页面地址
-                .loginPage("/login.html")
+                .loginPage(SecurityConstant.LOGIN_PAGE)
                 // 登录请求处理地址
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl(SecurityConstant.LOGIN_PROCESSING_URL)
+                .permitAll()
+//                .successHandler(authenticationSuccessHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login.html")
-                .permitAll()
                 .anyRequest()
                 .authenticated()
-                .and()
-                // 禁用 session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 // 禁用  httpBasic Filter 和  csrf Filter
                 .httpBasic().disable()
                 .csrf().disable();
+
+        // 基于密码 等模式可以无session,不支持授权码模式
+        if (authenticationEntryPoint != null) {
+            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        } else {
+            // 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        }
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    /**
+     * 注册用户查询服务 Bean
+     *
+     * @param auth {@link AuthenticationManagerBuilder}
+     * @throws Exception
+     */
+    @Autowired
+    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-//        auth.inMemoryAuthentication()
-//                .withUser("admin")
-//                /**
-//                 * 问题现象：There is no PasswordEncoder mapped for the id "null"
-//                 * 问题原因：spring security 5.x 开始调整了密码的格式:"{id}encodedPassword"。 https://docs.spring.io/spring-security/site/docs/5.2.8.RELEASE/reference/htmlsingle/#pe-dpe-formatc/main/java/org/springframework/security/crypto/factory/PasswordEncoderFactories.java
-//                 * 解决方法：https://blog.csdn.net/Hello_World_QWP/article/details/81811462
-//                 * https://github.com/spring-projects/spring-security/blob/7ef3f619242816683a72b35a1f8b4fb4f32d5203/crypto/sr          */
-//                .password("{noop}123")
-//                .authorities("ROLE_ADMIN");
     }
 }
