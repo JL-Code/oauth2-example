@@ -3,16 +3,17 @@ import qs from "qs"
 import { Base64 } from 'js-base64'
 
 export default class {
-    static consumeAuthorizationCode(code, clientId = "clientId", clientSecret = "clientSecret") {
+    static consumeAuthorizationCode(code, clientId = "clientId",
+        clientSecret = "clientSecret", endpoint = "/oauth/token",
+        redirectUri = "http://localhost:8082/oauth2/transfer-page") {
 
         let rawCredentials = `${clientId}:${clientSecret}`;
-        let endpoint = "/oauth/token";
 
         // http://127.0.0.1:9900/api-uaa/oauth/token
         let data = qs.stringify({
             grant_type: "authorization_code",
             code: code,
-            redirect_uri: "http://localhost:8082/oauth2/transfer-page"
+            redirect_uri: redirectUri
             // client_id: ""
         })
 
@@ -29,8 +30,8 @@ export default class {
         )
     }
 
-    static fetchUser(openid, accessToken) {
-        let endpoint = `/api/user/userinfo?openId=${openid}`;
+    static fetchUser(openid, accessToken, endpoint = "/api/user/userinfo") {
+        endpoint = `${endpoint}?openId=${openid}`;
         return axios.get(endpoint, { headers: { "Authorization": `Bearer ${accessToken}` } });
     }
 }

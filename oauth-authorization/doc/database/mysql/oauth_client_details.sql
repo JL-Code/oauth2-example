@@ -1,18 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : local
- Source Server Type    : MySQL
- Source Server Version : 80019
- Source Host           : localhost:3306
- Source Schema         : highzap_cloud
-
- Target Server Type    : MySQL
- Target Server Version : 80019
- File Encoding         : 65001
-
- Date: 02/02/2021 18:53:13
-*/
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

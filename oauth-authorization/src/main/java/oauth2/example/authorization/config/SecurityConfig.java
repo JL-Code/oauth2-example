@@ -1,6 +1,6 @@
 package oauth2.example.authorization.config;
 
-import oauth2.example.authorization.security.SecurityConstant;
+import oauth2.example.authorization.security.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,9 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 // 登录静态页面地址
-                .loginPage(SecurityConstant.LOGIN_PAGE)
+                .loginPage(SecurityConstants.LOGIN_PAGE)
                 // 登录请求处理地址
-                .loginProcessingUrl(SecurityConstant.LOGIN_PROCESSING_URL)
+                .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
                 .permitAll()
 //                .successHandler(authenticationSuccessHandler)
                 .and()

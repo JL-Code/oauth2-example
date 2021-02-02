@@ -8,9 +8,9 @@
     <node x="0.0" y="540.0">org.apache.catalina.core.ApplicationFilterChain</node>
     <node x="705.0" y="107.0">org.springframework.context.EnvironmentAware</node>
     <node x="1268.0" y="107.0">org.springframework.core.env.EnvironmentCapable</node>
-    <node x="232.0" y="107.0">org.springframework.beans.factory.DisposableBean</node>
-    <node x="700.0" y="224.0">org.springframework.web.filter.GenericFilterBean</node>
     <node x="705.0" y="331.0">org.springframework.security.web.FilterChainProxy</node>
+    <node x="700.0" y="224.0">org.springframework.web.filter.GenericFilterBean</node>
+    <node x="232.0" y="107.0">org.springframework.beans.factory.DisposableBean</node>
     <node x="773.1750000000001" y="0.0">org.springframework.beans.factory.Aware</node>
     <node x="1138.0" y="107.0">javax.servlet.Filter</node>
     <node x="937.0" y="107.0">org.springframework.beans.factory.BeanNameAware</node>
@@ -85,9 +85,9 @@
       <point x="0.0" y="28.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.7707380796864794" x="755.5" y="299.5" />
+  <settings layout="Hierarchic Group" zoom="0.6077441077441077" x="744.5" y="287.0" />
   <SelectedNodes>
-    <node>org.springframework.security.web.FilterChainProxy</node>
+    <node>org.springframework.beans.factory.InitializingBean</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>

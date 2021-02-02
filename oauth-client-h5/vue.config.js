@@ -30,6 +30,14 @@ module.exports = {
                     "^/oauth": "/oauth",
                 },
             },
+            "/api/uaa/": {
+                target: process.env.VUE_APP_API,
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                    "^/api/uaa": "/api/uaa",
+                },
+            },
             "/api/user/": {
                 target: process.env.VUE_USER_SERVER_API,
                 changeOrigin: true,
