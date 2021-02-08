@@ -14,7 +14,7 @@ export default {
     return {
       authorizationServer: "http://localhost:8088",
       clientId: "clientId",
-      redirectUri: "http://localhost:8082/oauth2/transfer-page",
+      redirectUri: "http://localhost:8080/oauth2/transfer-page",
     }
   },
   created() {

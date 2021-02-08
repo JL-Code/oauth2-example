@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 
 import java.util.LinkedHashMap;
@@ -72,7 +73,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenKeyAccess("isAuthenticated()")
                 .checkTokenAccess("permitAll()")
                 //让 /oauth/token 支持 client_id 以及 client_secret 作登录认证
-                .allowFormAuthenticationForClients();
+                .allowFormAuthenticationForClients()
+                .addTokenEndpointAuthenticationFilter(new OAuth2AuthenticationProcessingFilter());
     }
 
     @Override

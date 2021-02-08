@@ -23,35 +23,27 @@ module.exports = {
         disableHostCheck: true, // 禁用主机检查
         proxy: {
             "/oauth/": {
-                target: process.env.VUE_APP_API,
+                target: process.env.VUE_APP_IDENTITY_API,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
                     "^/oauth": "/oauth",
                 },
             },
-            "/api/uaa/": {
+            "/api/": {
                 target: process.env.VUE_APP_API,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
-                    "^/api/uaa": "/api/uaa",
+                    "^/api": "/api",
                 },
             },
-            "/api/user/": {
-                target: process.env.VUE_USER_SERVER_API,
+            "/integration": {
+                target: "http://localhost:9000",
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
-                    "^/api/user/": "/api/user/",
-                },
-            },
-            "/api-uaa": {
-                target: process.env.VUE_APP_API,
-                changeOrigin: true,
-                ws: true,
-                pathRewrite: {
-                    "^/api-uaa": "/api-uaa",
+                    "^/integration": "/integration",
                 },
             }
         }

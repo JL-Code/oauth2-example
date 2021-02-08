@@ -21,9 +21,10 @@
         <module>oauth-common-spring-boot-starter</module>
         <module>oauth-common-spring-boot-autoconfigure</module>
         <module>oauth-authorization</module>
-        <module>oauth-resource</module>
+        <module>oauth-user-resource</module>
         <module>oauth-gateway</module>
         <module>oauth2-sso</module>
+        <module>spring-security-5.2.x</module>
     </modules>
 
     <properties>

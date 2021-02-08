@@ -24,7 +24,13 @@ export default {
       let code = this.$route.query.code;
       // 向后台发起消费 code 的请求
       oauth2Client
-        .consumeAuthorizationCode(code)
+        .consumeAuthorizationCode(
+          code,
+          "clientId",
+          "clientSecret",
+          "/oauth/token",
+          "http://localhost:8080/oauth2/transfer-page"
+        )
         .then((res) => {
           this.accessTokenResponse = res.data;
           let { access_token, openid, userid } = this.accessTokenResponse;

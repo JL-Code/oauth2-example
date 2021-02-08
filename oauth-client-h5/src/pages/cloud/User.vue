@@ -2,6 +2,7 @@
   <div class="user oauth-form">
     <p><input type="text" v-model="openId" /></p>
     <p><input type="text" v-model="accessToken" /></p>
+    <p><input type="text" v-model="apiEndpoint" /></p>
     <button type="button" @click="fetchUser">获取用户信息</button>
     <p>
       {{ user }}
@@ -19,6 +20,7 @@ export default {
       openId: "",
       userId: "",
       accessToken: "",
+      apiEndpoint: "/api/user/oauth/userinfo",
     };
   },
   created() {
@@ -29,7 +31,7 @@ export default {
     fetchUser() {
       let id = this.openId || this.userId;
       oauthClient
-        .fetchUser(id, this.accessToken, "/api/uaa/common/current-user")
+        .fetchUser(id, this.accessToken, this.apiEndpoint)
         .then((res) => {
           this.user = res.data;
           console.log(res);
