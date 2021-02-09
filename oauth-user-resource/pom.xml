@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>oauth-resource</artifactId>
+    <artifactId>oauth-user-resource</artifactId>
 
     <dependencies>
         <dependency>
