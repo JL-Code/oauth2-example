@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("oauth2.example.authorization.repository")
-public class AuthorizationServerApplication {
+public class OAuth2AuthorizationServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AuthorizationServerApplication.class, args);
+        SpringApplication.run(OAuth2AuthorizationServerApplication.class, args);
     }
 }

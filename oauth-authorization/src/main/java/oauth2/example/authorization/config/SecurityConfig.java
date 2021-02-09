@@ -31,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     public SecurityConfig(UserDetailsService userDetailsService) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.userDetailsService = userDetailsService;
     }
 
@@ -68,7 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 登录请求处理地址
                 .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
                 .permitAll()
-//                .successHandler(authenticationSuccessHandler)
                 .and()
                 .authorizeRequests()
                 .anyRequest()

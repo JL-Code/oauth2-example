@@ -23,7 +23,7 @@
         <module>oauth-authorization</module>
         <module>oauth-user-resource</module>
         <module>oauth-gateway</module>
-        <module>oauth2-sso</module>
+        <module>oauth2-sso-based-session</module>
         <module>spring-security-5.2.x</module>
     </modules>
 

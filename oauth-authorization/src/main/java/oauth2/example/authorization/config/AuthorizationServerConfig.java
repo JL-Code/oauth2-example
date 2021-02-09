@@ -1,24 +1,19 @@
 package oauth2.example.authorization.config;
 
 import oauth2.example.authorization.security.CustomizedRedirectResolver;
-import oauth2.example.authorization.security.model.UserIdentity;
+import oauth2.example.authorization.security.CustomizedTokenEnhancer;
 import oauth2.example.authorization.security.service.CustomizedClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * <p>创建时间: 2021/1/27 </p>
@@ -32,14 +27,16 @@ import java.util.Map;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private CustomizedClientDetailsService clientDetailsService;
+    private CustomizedTokenEnhancer customizedTokenEnhancer;
     private UserDetailsService userDetailsService;
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private RandomValueAuthorizationCodeServices authorizationCodeServices;
 
-    public AuthorizationServerConfig(CustomizedClientDetailsService clientDetailsService, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+    public AuthorizationServerConfig(CustomizedClientDetailsService clientDetailsService, CustomizedTokenEnhancer customizedTokenEnhancer, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
         this.clientDetailsService = clientDetailsService;
+        this.customizedTokenEnhancer = customizedTokenEnhancer;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
@@ -72,9 +69,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         security
                 .tokenKeyAccess("isAuthenticated()")
                 .checkTokenAccess("permitAll()")
-                //让 /oauth/token 支持 client_id 以及 client_secret 作登录认证
-                .allowFormAuthenticationForClients()
-                .addTokenEndpointAuthenticationFilter(new OAuth2AuthenticationProcessingFilter());
+                // 让 /oauth/token 支持 client_id + client_secret 作登录认证
+                .allowFormAuthenticationForClients();
     }
 
     @Override
@@ -82,25 +78,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         endpoints
                 .redirectResolver(new CustomizedRedirectResolver())
-                .authenticationManager(authenticationManager)
+//                .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeServices)
-                .tokenEnhancer((accessToken, authentication) -> {
-                    DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-                    UserIdentity identity = (UserIdentity) authentication.getPrincipal();
-
-                    // 术语解释： Principal 主体  Identity 身份 Role 角色。
-                    // Principal = Identity + Role
-                    // https://stackoverflow.com/questions/28436332/what-is-really-a-principal-in-net
-                    // https://docs.microsoft.com/en-us/dotnet/standard/security/principal-and-identity-objects
-
-                    Map<String, Object> hash = new LinkedHashMap();
-                    hash.put("openid", identity.getId());
-                    hash.put("userid", identity.getId());
-
-                    token.setAdditionalInformation(hash);
-
-                    return token;
-                });
+                .tokenEnhancer(customizedTokenEnhancer);
     }
 }
